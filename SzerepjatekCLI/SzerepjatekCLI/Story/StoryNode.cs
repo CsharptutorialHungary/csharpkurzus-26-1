@@ -6,5 +6,8 @@ namespace SzerepjatekCLI.Story
 {
     internal class StoryNode
     {
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public Dictionary<string, string> Choices { get; set; }
     }
 }

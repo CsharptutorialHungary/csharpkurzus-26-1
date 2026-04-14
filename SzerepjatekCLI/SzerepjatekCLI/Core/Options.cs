@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SzerepjatekCLI.Utils
+namespace SzerepjatekCLI.Core;
+
+internal class Options
 {
-    internal class InputHelper
-    {
-    }
 }

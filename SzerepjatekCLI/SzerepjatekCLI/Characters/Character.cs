@@ -6,5 +6,6 @@ namespace SzerepjatekCLI.Characters
 {
     internal class Character
     {
+
     }
 }
