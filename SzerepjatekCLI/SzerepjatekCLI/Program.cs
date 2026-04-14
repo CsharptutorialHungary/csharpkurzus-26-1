@@ -1,4 +1,13 @@
 ﻿using SzerepjatekCLI.Core;
 
 
-Console.WriteLine("Üdvözöllek a játékban!");
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Üdvözöllek a játékban!");
+        Game game = new Game();
+        game.Run();
+    }
+}

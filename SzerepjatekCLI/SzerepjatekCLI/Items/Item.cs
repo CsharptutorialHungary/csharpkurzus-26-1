@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SzerepjatekCLI.Items
 {
-    internal class Item
+    public class Item
     {
     }
 }

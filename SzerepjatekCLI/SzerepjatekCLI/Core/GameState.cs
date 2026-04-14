@@ -12,6 +12,6 @@ namespace SzerepjatekCLI.Core
     {
         public Character Player { get; init; }
         public string CurrentLocation { get; init; }
-        public List<Item> Inventory { get; init; }
+        public List<Item> Inventory { get; init; } = new();
     }
 }

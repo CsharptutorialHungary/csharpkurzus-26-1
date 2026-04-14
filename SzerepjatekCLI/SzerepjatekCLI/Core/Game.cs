@@ -34,7 +34,7 @@ namespace SzerepjatekCLI.Core
             Console.WriteLine("=== ÚJ JÁTÉK ===");
 
             // 1. Név
-            string name = InputHandler.ReadString("Add meg a neved:");
+            string name = InputHandler.ReadName("Add meg a neved:");
 
             // 2. Karakter választás
             Console.WriteLine("\nVálassz karaktert:");
@@ -46,16 +46,16 @@ namespace SzerepjatekCLI.Core
 
             Character player = choice switch
             {
-                1 => new Character { Name = name, Health = 150, Attack = 20 },
-                2 => new Character { Name = name, Health = 120, Attack = 25 },
-                3 => new Character { Name = name, Health = 100, Attack = 30 },
+                1 => new Character { Name = name, MaxHealth = 150, Attack = 20 },
+                2 => new Character { Name = name, MaxHealth = 120, Attack = 25 },
+                3 => new Character { Name = name, MaxHealth = 100, Attack = 30 },
                 _ => throw new Exception("Invalid choice")
             };
 
             // 3. Inventory
             List<Item> inventory = new List<Item>
-    {
-        new Weapon { Name = "Rozsdás kard", Damage = 5 }
+    {       
+        //new Weapon { Name = "Rozsdás kard", Damage = 5 }
     };
 
             // 4. GameState létrehozása
@@ -67,8 +67,6 @@ namespace SzerepjatekCLI.Core
             };
 
             return state;
-        }
-
         }
 
         private void GameLoop()

@@ -8,6 +8,6 @@ namespace SzerepjatekCLI.Story
     {
         public string Id { get; set; }
         public string Text { get; set; }
-        public Dictionary<string, string> Choices { get; set; }
+        public List<Choice> Choices { get; set; }
     }
 }

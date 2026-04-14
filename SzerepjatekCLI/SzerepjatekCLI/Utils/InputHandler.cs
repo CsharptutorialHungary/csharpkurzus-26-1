@@ -37,9 +37,35 @@ namespace SzerepjatekCLI.Utils
         }
 
         internal static string ReadName(string v)
-        { 
+        {
 
+            while (true)
+            {
+                Console.Write(v + " ");
+                string? input = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(input))
+                    return input;
+
+                Console.WriteLine("A név nem lehet üres!");
+            }
         }
+
+        internal static string ReadString(string v)
+        {
+
+            while (true)
+            {
+                //Console.Write(v + " ");
+                string? input = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(input))
+                    return input;
+
+                Console.WriteLine("A név nem lehet üres!");
+            }
+        }
+
 
         private static void WriteError(string message)
         {
