@@ -1,0 +1,92 @@
+{
+  "mage": {
+    "attack": [
+      "Ujjai bizseregni kezdenek, a levegő megfeszül körülötte, majd egy {damageType} villám csap le {target} felé.",
+      "Halkan mormol, haja vége szikrákat szór, és egy pulzáló energialöket csapódik {target} testébe.",
+      "Tenyerében örvényleni kezd a mágia, majd egy izzó gömböt lő ki, ami becsapódva felperzseli {target} környezetét.",
+      "A fű körülötte zizsegni kezd az erőtől, majd egy láthatatlan hullám taszítja meg {target}-et.",
+      "Szemei felizzanak, és egy éles, sistergő sugár hasít át a levegőn egyenesen {target} felé."
+    ],
+    "defense": [
+      "Gyors mozdulattal mágikus pajzsot von maga köré, amely tompítja {attacker} támadását.",
+      "Egy halványan izzó aura villan fel körülötte, ahogy a becsapódás ereje szétoszlik.",
+      "Hátratántorodik a találattól, de egy védővarázs elnyeli a sebzés egy részét.",
+      "Kezében felvillan az energia, és az utolsó pillanatban felfogja {attacker} csapását.",
+      "A levegő megremeg körülötte, mintha maga a mágia védené meg a legrosszabbtól."
+    ],
+    "lowHp": [
+      "Légzete szaggatottá válik, a körülötte kavargó mágia is bizonytalanul vibrál.",
+      "Kezében megremeg az energia, mintha már alig tudná kordában tartani.",
+      "Arca elsápad, és a varázsereje kiszámíthatatlanul cikázik körülötte.",
+      "Térdei meginognak, de még mindig próbálja összegyűjteni maradék erejét.",
+      "A levegő körülötte elcsendesedik – mintha a mágia is elhagyni készülne."
+    ],
+    "kill": [
+      "A varázslat elsöprő erővel csap le, és {target} teste élettelenül rogy össze.",
+      "Egy utolsó, vakító villanás után {target} mozdulatlanul terül el a földön.",
+      "A mágikus energia felperzsel mindent, és {target} nem marad talpon.",
+      "A becsapódás után csak füst és csend marad – {target} legyőzetett.",
+      "A varázslat könyörtelenül végez {target}-tel, aki összeesik és nem mozdul többé."
+    ]
+  },
+  "warrior": {
+    "attack": [
+      "Egy határozott lépéssel előrelendül, és {weapon}-jével oldalról sújt le {target} felé.",
+      "Fölé kerekedik, majd teljes erejéből lesújt {weapon}-jével, hogy áttörje {target} védelmét.",
+      "Gyors csellel kikerüli a támadást, majd visszafordulva mély vágást ejt {target} testén.",
+      "Felordítva rohan előre, és brutális erejű csapást mér {target}-re.",
+      "Egy lendületes mozdulattal felrántja {weapon}-jét, majd könyörtelenül lesújt {target} felé."
+    ],
+    "defense": [
+      "Felemeli {weapon}-jét, és felfogja {attacker} támadását, bár az ereje így is hátralöki.",
+      "Összeszorítja a fogát, és vállával nyeli el az ütés nagy részét.",
+      "Egy gyors mozdulattal félrefordul, így a csapás csak súrolja.",
+      "Megveti a lábát, és testével állja a találatot, bár a becsapódás megrázza.",
+      "Páncélja csattan egyet, ahogy {attacker} támadása lepattan róla, de az ütés ereje így is érezhető."
+    ],
+    "lowHp": [
+      "Vére csorog a sebekből, de még mindig dacosan talpon marad.",
+      "Légzete nehézzé válik, minden mozdulat fájdalmas erőfeszítés.",
+      "Meginog egy pillanatra, de újra megveti a lábát, nem hajlandó elesni.",
+      "Sebei mélyek, de tekintetében még mindig ott ég a harci elszántság.",
+      "Fáradtan, de makacsul szorítja {weapon}-jét, készen az utolsó csapásra."
+    ],
+    "kill": [
+      "Egy brutális csapással végez {target}-tel, aki összerogy a lábai előtt.",
+      "Teljes erejével sújt le, és {target} élettelenül zuhan a földre.",
+      "A fegyver becsapódása után {target} többé nem mozdul.",
+      "Könyörtelenül áttöri a védelmet, és {target} elbukik.",
+      "Az utolsó ütés mindent eldönt – {target} legyőzetett."
+    ]
+  },
+  "rogue": {
+    "attack": [
+      "Árnyékként suhan {target} mögé, és gyors, pontos szúrást mér rá.",
+      "Egy pillanatra eltűnik a látómezőből, majd oldalról villámgyorsan lecsap {target}-re.",
+      "Megtévesztő mozdulatot tesz, majd hirtelen irányt váltva mély sebet ejt {target}-en.",
+      "Kihasználva a rést a védelemben, hangtalanul döfi át {target} oldalát.",
+      "Alacsonyan mozogva közelít, majd egy gyors vágással megbontja {target} egyensúlyát."
+    ],
+    "defense": [
+      "Villámgyors reflexekkel félreugrik, így {attacker} támadása csak alig talál.",
+      "Az utolsó pillanatban kitér, de a csapás még így is megkarcolja.",
+      "Egy pördüléssel kikerüli az ütést, majd visszahúzódik az árnyékok közé.",
+      "Karját felemelve próbálja hárítani a támadást, de a találat így is eléri.",
+      "Gyors hátraugrással csökkenti a becsapódás erejét, majd újra egyensúlyba kerül."
+    ],
+    "lowHp": [
+      "Légzete kapkodóvá válik, mozdulatai már nem olyan pontosak.",
+      "Egy pillanatra megtorpan, látszik rajta, hogy közel jár a végéhez.",
+      "Sebei miatt lassul, de még mindig próbál az árnyékokban maradni.",
+      "Szeme idegesen cikázik, minden mozdulatban ott a túlélési ösztön.",
+      "Alig áll a lábán, de még mindig készen áll egy utolsó trükkre."
+    ],
+    "kill": [
+      "Egy gyors, halálos mozdulattal végez {target}-tel, aki hangtalanul esik össze.",
+      "A támadás észrevétlen, de végzetes – {target} már nem mozdul.",
+      "Egyetlen pontos szúrás, és {target} azonnal összeesik.",
+      "Az árnyékból érkező csapás után {target} élettelenül terül el.",
+      "Gyors és könyörtelen – {target} sorsa egy pillanat alatt eldőlt."
+    ]
+  }
+}

@@ -1,3 +1,22 @@
 {
-
+  "player": {
+    "name": "Teszt Elek",
+    "level": 5,
+    "hp": 42,
+    "inventory": [
+      {
+        "name": "Kard",
+        "type": "fegyver",
+        "damage": 10
+      },
+      {
+        "name": "Pajzs",
+        "type": "védőfelszerelés",
+        "defense": 5
+      }
+    ]
+  },
+  "story": {
+    "id": 3
+  }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+using SzerepjatekCLI.Services;
 using SzerepjatekCLI.Utils;
 
 namespace SzerepjatekCLI.Core
@@ -15,11 +16,12 @@ namespace SzerepjatekCLI.Core
             Console.WriteLine("Válassz egy lehetőséget:");
             Console.WriteLine("1. Új játék");
             Console.WriteLine("2. Játék betöltése");
-            //Console.WriteLine("3. Menü");
-            return InputHandler.ReadIntInRange("Választás:", 1, 2);
+            //Console.WriteLine("3. Beállítások");
+            Console.WriteLine("3. Kilépés");
+            return InputHandler.ReadIntInRange("Választás:", 1, 3);
         }
 
-        public static void ShowInGameMenu()
+        public static void ShowInGameMenu(GameState gameState)
         {
             Console.Clear();
             Console.WriteLine("=== MENÜ ===");
@@ -27,27 +29,64 @@ namespace SzerepjatekCLI.Core
             Console.WriteLine("2. Mentés");
             Console.WriteLine("3. Főmenü");
             Console.WriteLine("4. Kilépés");
-            int choice = InputHandler.ReadIntInRange("Választás:", 1, 2);
+            int choice = InputHandler.ReadIntInRange("Választás:", 1, 4);
+            bool isSaved = false;
             if (choice == 1)
             {
-                //folytatás, kiírja az utolós szöveget és az input opciókat
+                //folytatás, kiírja az utolsó szöveget és az input opciókat
             }
             else if (choice == 2)
             {
-                Console.WriteLine("Mentés... Még fejlesztés alatt");
-            }
-            else if (choice == 3)
-            {
-                // Főmenüre vissza
-                Console.Clear();
-                Program.Main(null);
-            }
-            else if (choice == 4)
-            {
-                // Kilépés
-                Environment.Exit(0);
-            }
+                
+                SaveService.SaveGame(gameState, "Data/save.json");
+                isSaved = true;
+                Console.WriteLine("Sikeres mentés!");
 
+            }
+            else if (choice == 3)//vissza a főmenüre
+            {
+                if (isSaved)
+                {
+                    Console.Clear();
+                    Program.Main(null);
+                }
+                else
+                {
+                    Console.WriteLine("Nem mentetted a játékot! Biztosan vissza akarsz térni a főmenüre? (y/n)");
+                    string input = Console.ReadLine();
+                    if (input == "y" || input == "Y")
+                    {
+                        Console.Clear();
+                        Program.Main(null);
+                    }
+                    else
+                    {
+                        ShowInGameMenu(gameState);
+                    }
+                }
+            }
+            else if (choice == 4)//kilépés
+            {
+                if (isSaved)
+                {
+                    Environment.Exit(0);
+
+                }
+
+                Console.WriteLine("Nem mentetted a játékot! Biztosan ki akarsz lépni? (y/n)");
+                string input = Console.ReadLine();
+                if (input == "y" || input == "Y")
+                {
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    //mentés meghívása, majd kilépés
+                    SaveService.SaveGame(gameState, "Data/save.json");
+                    Environment.Exit(0);
+                }
+
+            }
         }
     }
 }

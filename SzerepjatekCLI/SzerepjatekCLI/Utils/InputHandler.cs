@@ -46,7 +46,7 @@ namespace SzerepjatekCLI.Utils
 
                 if (!string.IsNullOrWhiteSpace(input))
                     return input;
-
+                   
                 Console.WriteLine("A név nem lehet üres!");
             }
         }

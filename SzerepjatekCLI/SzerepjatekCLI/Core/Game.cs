@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-using SzerepjatekCLI.Characters;
+using SzerepjatekCLI.Entities;
 using SzerepjatekCLI.Items;
 using SzerepjatekCLI.Services;
 using SzerepjatekCLI.Story;
@@ -83,7 +83,7 @@ namespace SzerepjatekCLI.Core
                 // állapot frissítés
                 _state = _state with
                 {
-                    CurrentLocation = node.Choices.ElementAt(choice - 1).Value
+                    CurrentLocation = node.Choices[choice - 1].Text
                 };
             }
         }

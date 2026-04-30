@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SzerepjatekCLI.Story
 {
-    internal class StoryNode
+    record class StoryNode
     {
         public string Id { get; set; }
         public string Text { get; set; }
