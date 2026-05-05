@@ -16,9 +16,10 @@ namespace SzerepjatekCLI.Core
             Console.WriteLine("Válassz egy lehetőséget:");
             Console.WriteLine("1. Új játék");
             Console.WriteLine("2. Játék betöltése");
+            Console.WriteLine("3. Segítség");
             //Console.WriteLine("3. Beállítások");
-            Console.WriteLine("3. Kilépés");
-            return InputHandler.ReadIntInRange("Választás:", 1, 3);
+            Console.WriteLine("4. Kilépés");
+            return InputHandler.ReadIntInRange("Választás:", 1, 4);
         }
 
         public static void ShowInGameMenu(GameState gameState)
@@ -27,9 +28,10 @@ namespace SzerepjatekCLI.Core
             Console.WriteLine("=== MENÜ ===");
             Console.WriteLine("1. Folytatás");
             Console.WriteLine("2. Mentés");
-            Console.WriteLine("3. Főmenü");
-            Console.WriteLine("4. Kilépés");
-            int choice = InputHandler.ReadIntInRange("Választás:", 1, 4);
+            Console.WriteLine("3. Segítség");
+            Console.WriteLine("4. Főmenü");
+            Console.WriteLine("5. Kilépés");
+            int choice = InputHandler.ReadIntInRange("Választás:", 1, 5);
             bool isSaved = false;
             if (choice == 1)
             {

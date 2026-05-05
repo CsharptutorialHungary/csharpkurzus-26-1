@@ -14,7 +14,7 @@ namespace SzerepjatekCLI.Core
     public class Game
     {
         private GameState _state;
-        private StoryManager _storyManager;
+        private StoryManager _storyManager = new StoryManager();
 
         public void Run()
         {
@@ -43,26 +43,26 @@ namespace SzerepjatekCLI.Core
             Console.WriteLine("3 - Mágus");
 
             int choice = InputHandler.ReadIntInRange(":", 1, 3);
-
-            Character player = choice switch
+           Character character = choice switch
             {
-                1 => new Character { Name = name, MaxHealth = 150, Attack = 20 },
-                2 => new Character { Name = name, MaxHealth = 120, Attack = 25 },
-                3 => new Character { Name = name, MaxHealth = 100, Attack = 30 },
+                1 => new Mage(),
+                2 => new Warrior(),
+                3 => new Rogue(),
                 _ => throw new Exception("Invalid choice")
             };
 
+            Player player = new Player(character);
             // 3. Inventory
             List<Item> inventory = new List<Item>
-    {       
-        //new Weapon { Name = "Rozsdás kard", Damage = 5 }
-    };
+            {
+                //new Weapon { Name = "Rozsdás kard", Damage = 5 }
+            };
 
             // 4. GameState létrehozása
             var state = new GameState
             {
-                Player = player,
-                CurrentLocation = "start", // ez legyen a story.json első node-ja
+                Player = character,
+                CurrentLocation = "megbizolevel", // ez legyen a story.json első node-ja
                 Inventory = inventory
             };
 
@@ -74,16 +74,20 @@ namespace SzerepjatekCLI.Core
             while (true)
             {
                 StoryNode node = _storyManager.GetNode(_state.CurrentLocation);
-
                 Console.WriteLine(node.Text);
+                
 
+                for (int i = 0; i < node.Choices.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}: {node.Choices[i].Text}");
+                }
                 // választás
-                int choice = InputHandler.ReadIntInRange(":", 1, node.Choices.Count);
+                int choice = InputHandler.ReadIntInRange(":", 1, node.Choices.Count, _state);
 
                 // állapot frissítés
                 _state = _state with
                 {
-                    CurrentLocation = node.Choices[choice - 1].Text
+                    CurrentLocation = node.Choices[choice - 1].Next
                 };
             }
         }

@@ -9,7 +9,7 @@ using SzerepjatekCLI.Story;
 namespace SzerepjatekCLI.Core
 {
     //mi történik éppen a játékban
-    public class GameState
+    public record GameState
     {
         public Character Player { get; init; }
         public string CurrentLocation { get; init; }
