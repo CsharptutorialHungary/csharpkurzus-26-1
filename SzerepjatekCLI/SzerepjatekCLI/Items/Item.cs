@@ -4,7 +4,9 @@ using System.Text;
 
 namespace SzerepjatekCLI.Items
 {
-    public class Item
+    public interface Item
     {
+        public int Id { get; set; }
+        public int Weight { get; set; }
     }
 }

@@ -13,8 +13,9 @@ namespace SzerepjatekCLI.Core
     //
     public class Game
     {
-        private GameState _state;
-        private StoryManager _storyManager = new StoryManager();
+        private GameState? _state;
+        private readonly StoryManager _storyManager = new StoryManager();
+        private OutputService _outputService;
 
         public void Run()
         {
@@ -22,8 +23,8 @@ namespace SzerepjatekCLI.Core
 
             if (choice == 1)
                 _state = NewGame();
-            /*if(choice == 2)
-                _state = SaveService.Load*/
+            if(choice == 2)
+                _state = new LoadService().LoadGame();
 
             GameLoop();
         }
@@ -33,17 +34,19 @@ namespace SzerepjatekCLI.Core
             Console.Clear();
             Console.WriteLine("=== ÚJ JÁTÉK ===");
 
-            // 1. Név
-            string name = InputHandler.ReadName("Add meg a neved:");
+            //Név
+            string name = InputHandler.ReadName("Add meg a karaktered nevét:");
+            _outputService = new OutputService(name);
 
-            // 2. Karakter választás
+
+            //Karakter választás
             Console.WriteLine("\nVálassz karaktert:");
             Console.WriteLine("1 - Harcos");
             Console.WriteLine("2 - Íjász");
             Console.WriteLine("3 - Mágus");
 
             int choice = InputHandler.ReadIntInRange(":", 1, 3);
-           Character character = choice switch
+            Character character = choice switch
             {
                 1 => new Mage(),
                 2 => new Warrior(),
@@ -52,18 +55,23 @@ namespace SzerepjatekCLI.Core
             };
 
             Player player = new Player(character);
-            // 3. Inventory
+            player.Name = name;
+
+            // Inventory
             List<Item> inventory = new List<Item>
             {
-                //new Weapon { Name = "Rozsdás kard", Damage = 5 }
-            };
+               new Weapon { Name = "Másfélkezes kard", Description = "Ez a saját kedvenc kardod", Damage = 10, Defense = 5 },
+               new MoneyItem(Money.Arany, 10)
 
-            // 4. GameState létrehozása
+            };
+            player.Inventory = inventory;
+
+            // GameState létrehozása
             var state = new GameState
             {
-                Player = character,
-                CurrentLocation = "megbizolevel", // ez legyen a story.json első node-ja
-                Inventory = inventory
+                Player = player,
+                CurrentLocation = "megbizolevel", // a story.json első node-ja
+                //Inventory = player.Inventory
             };
 
             return state;
@@ -74,8 +82,15 @@ namespace SzerepjatekCLI.Core
             while (true)
             {
                 StoryNode node = _storyManager.GetNode(_state.CurrentLocation);
-                Console.WriteLine(node.Text);
-                
+                // Console.WriteLine(node.Text);
+                _outputService.Write(node.Text);
+
+                if (node.Choices.Count == 0)
+                {
+                    Console.WriteLine("A játék véget ért.");
+                    break;
+                }
+
 
                 for (int i = 0; i < node.Choices.Count; i++)
                 {
@@ -90,6 +105,13 @@ namespace SzerepjatekCLI.Core
                     CurrentLocation = node.Choices[choice - 1].Next
                 };
             }
+        }
+
+        public void ContinueGame(GameState gameState)
+        {
+            _state = gameState;
+            _outputService.Write((_storyManager.GetNode(_state.CurrentLocation)).Text);
+            GameLoop();
         }
     }
 }

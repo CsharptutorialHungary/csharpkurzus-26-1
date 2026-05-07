@@ -35,17 +35,19 @@ namespace SzerepjatekCLI.Core
             bool isSaved = false;
             if (choice == 1)
             {
-                //folytatás, kiírja az utolsó szöveget és az input opciókat
+                Console.Clear();
+                //_outputService.Write((_storyManager.GetNode(gameState.CurrentLocation)).Text);
+                return;
             }
             else if (choice == 2)
             {
                 
                 SaveService.SaveGame(gameState, "Data/save.json");
                 isSaved = true;
-                Console.WriteLine("Sikeres mentés!");
-
+                ShowInGameMenu(gameState);
+                return;
             }
-            else if (choice == 3)//vissza a főmenüre
+            else if (choice == 4)//vissza a főmenüre
             {
                 if (isSaved)
                 {
@@ -67,7 +69,7 @@ namespace SzerepjatekCLI.Core
                     }
                 }
             }
-            else if (choice == 4)//kilépés
+            else if (choice == 5)//kilépés
             {
                 if (isSaved)
                 {
@@ -88,6 +90,17 @@ namespace SzerepjatekCLI.Core
                     Environment.Exit(0);
                 }
 
+            }
+            else if(choice == 3)
+            {
+                Console.Clear();
+                Console.WriteLine("Segítség:");
+                Console.WriteLine("- Használd a számbillentyűket a menüpontok kiválasztásához.");
+                Console.WriteLine("- A játék során különböző helyszíneket fedezhetsz fel, tárgyakat gyűjthetsz és harcolhatsz ellenségekkel.");
+                Console.WriteLine("- Mentsd gyakran a játékot, hogy ne veszítsd el a haladásodat!");
+                Console.WriteLine("Nyomj meg egy gombot a visszatéréshez...");
+                Console.ReadKey();
+                ShowInGameMenu(gameState);
             }
         }
     }

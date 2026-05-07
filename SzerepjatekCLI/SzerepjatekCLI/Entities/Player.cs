@@ -4,12 +4,18 @@ using System.Text;
 
 namespace SzerepjatekCLI.Entities;
 
-internal class Player
+public class Player : Character
 {
-    public Character Character { get; }
+    public Character Character { set; get; }
 
-    public Player(Character character)
+    public Player(Character character) : base(character.MaxHealth, character.AttackPower)
     {
         Character = character;
+    }
+
+    public override int Attack()
+    {
+        //ide kell majd megírni a harcrendszert vagy innen kell rá hivatkozni. Sőt, ezt kell meghívni a public harcnrendszerből
+        return Character.AttackPower;
     }
 }

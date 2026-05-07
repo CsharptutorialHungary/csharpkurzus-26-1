@@ -11,9 +11,17 @@ namespace SzerepjatekCLI.Services
     {
         public static void SaveGame(GameState gameState, string filePath)
         {
+            try { 
             Console.WriteLine("Mentés...");
             string json = JsonSerializer.Serialize(gameState, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, json);
+            Console.WriteLine("Játék sikeresen mentve: {0}. Nyomj meg egy gombot a folytatáshoz...", filePath);
+            Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba történt a mentés során: {0}", ex.Message);
+            }
         }
     }
 }

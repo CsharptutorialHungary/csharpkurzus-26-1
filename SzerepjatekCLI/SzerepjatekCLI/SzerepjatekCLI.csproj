@@ -14,9 +14,6 @@
     <None Update="Data\characters.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Data\save.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Data\story.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,0 +1,36 @@
+{
+  "characters": [
+    {
+      "id": 1,
+      "name": "Aragorn",
+      "class": "Ranger",
+      "level": 5,
+      "attributes": {
+        "strength": 16,
+        "dexterity": 14,
+        "constitution": 15,
+        "intelligence": 12,
+        "wisdom": 13,
+        "charisma": 14
+      },
+      "skills": [ "Tracking", "Swordsmanship", "Survival" ],
+      "equipment": [ "Longsword", "Bow", "Leather Armor" ]
+    },
+    {
+      "id": 2,
+      "name": "Gandalf",
+      "class": "Wizard",
+      "level": 10,
+      "attributes": {
+        "strength": 10,
+        "dexterity": 12,
+        "constitution": 14,
+        "intelligence": 18,
+        "wisdom": 17,
+        "charisma": 16
+      },
+      "skills": [ "Spellcasting", "Alchemy", "Lore" ],
+      "equipment": [ "Staff", "Robe", "Spellbook" ]
+    }
+  ]
+}
