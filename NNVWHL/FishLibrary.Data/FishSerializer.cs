@@ -22,14 +22,14 @@ namespace FishLibrary.Data
                     return new List<Fish>();
                 }
                 string jsonString = File.ReadAllText(_filePath);
-                var fishes = JsonSerializer.Deserialize<List<Fish>>(jsonString);
+                List<Fish>? fishes = JsonSerializer.Deserialize<List<Fish>>(jsonString);
 
                 return fishes ?? new List<Fish>();
             }
             catch (JsonException ex)
             {
-                Console.WriteLine($"[ERROR] The JSON file was incorrect: {ex.Message}");
-                return new List<Fish>(); //TODO not sure if its good that we make a new list, but dont overcomplicate it 
+                Console.WriteLine($"Error while loading the JSON file: {ex.Message}");
+                return new List<Fish>(); 
             }
         }
 
@@ -42,7 +42,7 @@ namespace FishLibrary.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[ERROR] The fish data could not be saved: {ex.Message}");
+                Console.WriteLine($"The fish data could not be saved: {ex.Message}");
             }
         }
 

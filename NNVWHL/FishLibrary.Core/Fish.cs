@@ -1,3 +1,15 @@
-﻿namespace FishLibrary.Core;
+﻿using System.Text.Json.Serialization;
 
-public record Fish(string Name, DateTime DateOfBuy, string Color);
+namespace FishLibrary.Core;
+
+public record Fish(string Name, DateTime DateOfBuy, string Color)
+{
+    [JsonIgnore]
+    public int Age
+    {
+        get
+        {
+            return (DateTime.Now.Date - DateOfBuy.Date).Days;
+        }
+    }
+};

@@ -17,8 +17,10 @@
 //A karakterek ingyen vannak. Legyen normálisan elnevezve minden. Nem akarok látni asd, a, b, c meg semmit mondó metódus, tulajdonság és változó neveket.
 //Folyamatos munkát várok éppen ezért majd GIT repository-ba kell tenni munkát és nem egy giga maratonban kommitolást szeretnék látni, mert akkor másolást, de minimum sunyulást tételezek fel => nehezebb lesz védeni.
 
-using FishLibrary.Data;
 using FishLibrary.Core;
+using FishLibrary.Data;
+
+using NNVWHL.FishLibrary.Client;
 
 internal class Program
 {
@@ -27,38 +29,12 @@ internal class Program
         FishSerializer serializer = new FishSerializer();
         List<Fish> fishCollection = serializer.LoadFishes();
 
-        Console.WriteLine("Welcome to the FishLibrary!");
-        Console.WriteLine("Select an option:");
-        Console.WriteLine("A) Look up fish");
-        Console.WriteLine("B) Add fish");
-        Console.WriteLine("C) Remove fish");
-        Console.WriteLine("D) List all fish");
-        Console.WriteLine("X) Exit");
-        Console.Write("> ");
-        string option = Console.ReadLine() ?? string.Empty;
+        UserInterface ui = new UserInterface(serializer, fishCollection);
 
-        //before all of this, we will need to load up the json, and create a collection of the fishes 
-        switch (option)
-        {
-            case "A":
-               //Look up fish, ask for detail (maybe like based on name / age / color)
-                break;
-            case "B":
-               // Add fish, best to ask for data line by line: name, age, color
-               // -> create fish object, add to collection, serialize to json
-                break;
-            case "C":
-                // Remove based on name , yes we will not let two fish have the same name 
-                break;
-            case "D":
-                // List all fishes
-                break;
-            default:
-                Console.WriteLine("Invalid option. Please select A, B, C, D, or X.");
-                break;
-
-        }
+        ui.Start();
 
         return 0;
     }
+
 }
+

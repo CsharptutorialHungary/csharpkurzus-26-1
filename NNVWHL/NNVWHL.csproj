@@ -36,9 +36,4 @@
     <EditorConfigFiles Remove="C:\Users\egrys\csharpkurzus-26-1\NNVWHL\.editorconfig" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="FishLibrary.Core\FishLibrary.Core.csproj" />
-    <None Include="FishLibrary.Data\FishLibrary.Data.csproj" />
-  </ItemGroup>
-
 </Project>
