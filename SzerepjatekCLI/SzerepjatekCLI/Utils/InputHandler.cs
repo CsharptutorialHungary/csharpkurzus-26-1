@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using SzerepjatekCLI.Core;
+using SzerepjatekCLI.Items;
 
 namespace SzerepjatekCLI.Utils
 {
@@ -51,31 +52,41 @@ namespace SzerepjatekCLI.Utils
 
                 if (!string.IsNullOrWhiteSpace(input))
                     return input;
-                   
+
                 Console.WriteLine("A név nem lehet üres!");
             }
         }
 
         private static bool ReadString(string input, GameState gameState)
         {
-            if(gameState == null)
+            if (gameState == null)
                 return false;
 
             if (input == "h")
             {
-                List<string> list = new List<string> { "h = Segítség", "m = Menu" };
+                List<string> list = new List<string> { "h = Segítség", "m = Menu", "i = Hátizsák"};
                 foreach (var helps in list)
                 {
                     Console.WriteLine(helps);
                     return true;
                 }
-                
+
             }
             if (input == "m")
             {
                 Menu.ShowInGameMenu(gameState);
                 return true;
             }
+            if (input == "i")
+            {
+                Console.WriteLine("Hátizsák:");
+                foreach (var item in gameState.Player.Inventory)
+                {
+                    Console.WriteLine(item.ToString());
+                }
+                return true;
+            }
+
             return false;
         }
 

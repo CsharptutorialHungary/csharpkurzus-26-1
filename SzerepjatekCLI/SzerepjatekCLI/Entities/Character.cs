@@ -27,6 +27,11 @@ namespace SzerepjatekCLI.Entities
             AttackPower = attackPower;
         }
 
+        public Character()
+        {
+
+        }
+
         public abstract int Attack();
 
         public virtual void TakeDamage(int amount)
@@ -35,8 +40,9 @@ namespace SzerepjatekCLI.Entities
             if (CurrentHealth < 0) CurrentHealth = 0;
         }
 
-        public bool IsAlive => CurrentHealth > 0; 
+        public bool IsAlive => CurrentHealth > 0;
 
         public bool isLowHealth => CurrentHealth <= MaxHealth * 0.3;
+
     }
 }

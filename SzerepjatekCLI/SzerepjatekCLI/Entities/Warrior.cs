@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SzerepjatekCLI.Entities
 {
-    internal class Warrior:Character
+    internal class Warrior:Player
     {
-        public Warrior() : base(120, 20) { }
+        public Warrior() { }
 
         public override int Attack()
         {
@@ -15,7 +15,6 @@ namespace SzerepjatekCLI.Entities
 
         public override void TakeDamage(int amount)
         {
-            // tankosabb
             int reduced = amount - 3;
             base.TakeDamage(Math.Max(reduced, 0));
         }

@@ -14,13 +14,4 @@ internal class ActionProvider
         var json = File.ReadAllText(jsonPath);
         _actions = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, List<string>>>>(json);
     }
-
-    public List<string> GetActions(string characterType, string actionType)
-    {
-        if (_actions.TryGetValue(characterType, out var actionsByType) && actionsByType.TryGetValue(actionType, out var actions))
-        {
-            return actions;
-        }
-        return new List<string>();
-    }       
 }

@@ -15,7 +15,8 @@ namespace SzerepjatekCLI.Core
     {
         private GameState? _state;
         private readonly StoryManager _storyManager = new StoryManager();
-        private OutputService _outputService;
+        private OutputService? _outputService;
+        private readonly WeaponLoadService _weaponLoadService = new WeaponLoadService();
 
         public void Run()
         {
@@ -25,7 +26,6 @@ namespace SzerepjatekCLI.Core
                 _state = NewGame();
             if(choice == 2)
                 _state = new LoadService().LoadGame();
-
             GameLoop();
         }
 
@@ -46,21 +46,22 @@ namespace SzerepjatekCLI.Core
             Console.WriteLine("3 - Mágus");
 
             int choice = InputHandler.ReadIntInRange(":", 1, 3);
-            Character character = choice switch
+            Player player = choice switch
             {
                 1 => new Mage(),
                 2 => new Warrior(),
                 3 => new Rogue(),
                 _ => throw new Exception("Invalid choice")
             };
-
-            Player player = new Player(character);
             player.Name = name;
 
             // Inventory
-            List<Item> inventory = new List<Item>
+            List<Item> inventory = new List<Item>()
             {
-               new Weapon { Name = "Másfélkezes kard", Description = "Ez a saját kedvenc kardod", Damage = 10, Defense = 5 },
+               new Weapon("Kard", "Egy éles kard", 10, 5, 10),
+               new Potion("Gyógyító ital", "Gyógyító ital, +20 HP", true, 20, 2),
+               //new Potion("ManaPotion", "Mana visszaállító ital", false, 20, 2),
+               new Potion("Méreg", "Mérgező ital, -20 HP", false, 20, 2),
                new MoneyItem(Money.Arany, 10)
 
             };

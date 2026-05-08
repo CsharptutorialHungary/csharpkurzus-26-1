@@ -22,7 +22,7 @@ namespace SzerepjatekCLI.Core
             return InputHandler.ReadIntInRange("Választás:", 1, 4);
         }
 
-        public static void ShowInGameMenu(GameState gameState)
+        public static void ShowInGameMenu(GameState gameState, bool isSaved = false)
         {
             Console.Clear();
             Console.WriteLine("=== MENÜ ===");
@@ -32,7 +32,6 @@ namespace SzerepjatekCLI.Core
             Console.WriteLine("4. Főmenü");
             Console.WriteLine("5. Kilépés");
             int choice = InputHandler.ReadIntInRange("Választás:", 1, 5);
-            bool isSaved = false;
             if (choice == 1)
             {
                 Console.Clear();
@@ -41,10 +40,8 @@ namespace SzerepjatekCLI.Core
             }
             else if (choice == 2)
             {
-                
-                SaveService.SaveGame(gameState, "Data/save.json");
-                isSaved = true;
-                ShowInGameMenu(gameState);
+                isSaved = SaveService.SaveGame(gameState, "Data/save.json");
+                ShowInGameMenu(gameState, true);
                 return;
             }
             else if (choice == 4)//vissza a főmenüre
@@ -65,7 +62,7 @@ namespace SzerepjatekCLI.Core
                     }
                     else
                     {
-                        ShowInGameMenu(gameState);
+                        ShowInGameMenu(gameState, isSaved);
                     }
                 }
             }
@@ -96,11 +93,15 @@ namespace SzerepjatekCLI.Core
                 Console.Clear();
                 Console.WriteLine("Segítség:");
                 Console.WriteLine("- Használd a számbillentyűket a menüpontok kiválasztásához.");
-                Console.WriteLine("- A játék során különböző helyszíneket fedezhetsz fel, tárgyakat gyűjthetsz és harcolhatsz ellenségekkel.");
+                List<string> list = new List<string> { "h = Segítség", "m = Menu", "i = Hátizsák" };
+                foreach (var helps in list)
+                {
+                    Console.WriteLine(helps);
+                }
                 Console.WriteLine("- Mentsd gyakran a játékot, hogy ne veszítsd el a haladásodat!");
                 Console.WriteLine("Nyomj meg egy gombot a visszatéréshez...");
                 Console.ReadKey();
-                ShowInGameMenu(gameState);
+                ShowInGameMenu(gameState, isSaved);
             }
         }
     }

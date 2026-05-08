@@ -14,6 +14,9 @@ namespace SzerepjatekCLI.Story
         [JsonPropertyName("content")]
         public string Text { get; set; }
 
+        [JsonPropertyName("action")]
+        public string? Action { get; set; }
+
         [JsonPropertyName("choices")]
         public List<Choice> Choices { get; set; }
     }

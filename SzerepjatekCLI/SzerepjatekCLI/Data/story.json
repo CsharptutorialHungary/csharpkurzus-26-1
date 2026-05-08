@@ -7,7 +7,7 @@
       "choices": [
         {
           "text": "Elfogadom a küldetést",
-          "next": "valami"
+          "next": "bevezetes"
         },
         {
           "text": "Visszautasítom a küldetést",
@@ -16,22 +16,63 @@
       ]
     },
     {
-      "id": "valami",
-      "content": "minta",
+      "id": "bevezetes",
+      "content": "Késő őszre jár. A fák lombjai már sárgába és vörösbe fordultak, a nedves földön lehullott levelek ropognak csizmád alatt. Hideg szél fúj a hegyek felől, miközben a keskeny országúton haladsz Brooknora belseje felé.\n\nTáskádban ott lapul a király pecsétjével lezárt megbízólevél. Már többször elolvastad az út során, de még mindig nehéz elhinni, hogy valóban rád bízták ezt a feladatot.\n\nA távolban végül megpillantod az első falut. A kéményekből füst száll fel, az utcákon kevés ember jár. Egy kovácsműhelyből fémcsengés hallatszik, a piactéren árusok pakolják portékáikat és emberek beszélgetése szűrődik el hozzád, az út túloldalán pedig egy apró alkímista bolt látható.\n\nMegérkeztél Fenyővölgy faluba.",
       "choices": [
         {
-          "text": "minta",
-          "next": "2"
+          "text": "Elolvasom a megbízólevelet",
+          "next": "megbizolevel"
         },
         {
-          "text": "minta",
-          "next": "3"
+          "text": "Belépek a kovácshoz",
+          "next": "kovacs"
+        },
+        {
+          "text": "Körülnézek a piacon",
+          "next": "piac"
+        },
+        {
+          "text": "Bemegyek az alkímista boltba",
+          "next": "alkimista"
+        }
+      ]
+    },
+    {
+      "id": "kovacs",
+      "content": "A kovácsműhelyben forró a levegő. A falakon kardok, pajzsok és páncéldarabok lógnak. A kovács éppen egy izzó vasdarabot kalapál az üllőn.\n\nEladó tárgyak:\n\n1. Vaskard - Sebzés: 15 - Súly: 5 - Ár: 12 arany\n2. Vas pajzs - Védelem: 10 - Súly: 8 - Ár: 10 arany\n3. Harci fejsze - Sebzés: 22 - Súly: 12 - Ár: 20 arany",
+      "action": "shop_blacksmith",
+      "choices": [
+        {
+          "text": "Vissza a faluba",
+          "next": "bevezetes"
+        }
+      ]
+    },
+    {
+      "id": "piac",
+      "content": "A piactéren több árus is portékáit kínálja. Fűszerek, szárított húsok és utazófelszerelések sorakoznak a standokon.\n\nEladó tárgyak:\n\n1. Utazóköpeny - Védelem: 2 - Súly: 3 - Ár: 5 arany\n2. Szárított hús - Gyógyítás: 10 HP - Súly: 1 - Ár: 2 arany\n3. Fáklya - Súly: 2 - Ár: 1 arany",
+      "action": "shop_market",
+      "choices": [
+        {
+          "text": "Vissza a faluba",
+          "next": "bevezetes"
+        }
+      ]
+    },
+    {
+      "id": "alkimista",
+      "content": "Az alkímista boltját különös gyógynövények és főzetek szaga tölti be. A polcokon üvegcsék sorakoznak, bennük különböző színű folyadékokkal.\n\nEladó tárgyak:\n\n1. Kis gyógyital - Gyógyítás: 25 HP - Súly: 1 - Ár: 8 arany\n2. Nagy gyógyital - Gyógyítás: 60 HP - Súly: 2 - Ár: 18 arany\n3. Manaital - Mana: +30 - Súly: 1 - Ár: 10 arany",
+      "action": "shop_alchemist",
+      "choices": [
+        {
+          "text": "Vissza a faluba",
+          "next": "bevezetes"
         }
       ]
     },
     {
       "id": "vege1",
-      "content": "Köszönöm hogy játszottál a játékkal.",
+      "content": "Úgy döntesz, nem vállalod el a küldetést. Talán bölcs döntés volt, talán gyávaság.\n\nNéhány hónappal később Arakas seregei elfoglalják Brooknorát.\n\nKöszönöm, hogy játszottál a játékkal.",
       "choices": []
     }
   ]

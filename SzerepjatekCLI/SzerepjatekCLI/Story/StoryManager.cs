@@ -48,5 +48,54 @@ namespace SzerepjatekCLI.Story
             var node = GetNode(id);
             return node.Choices == null || node.Choices.Count == 0;
         }
+        void HandleAction(string action) //lehet hogy private lesz, mert csak a StoryManager-en belül használjuk
+        {
+            switch (action)
+            {
+                case "shop_blacksmith":
+                    OpenBlacksmithShop();
+                    break;
+
+                case "shop_market":
+                    OpenMarketShop();
+                    break;
+
+                case "shop_alchemist":
+                    OpenAlchemistShop();
+                    break;
+
+                case "battle":
+                    Fight();
+                    break;
+            }
+        }
+        private void OpenBlacksmithShop()
+        {
+            Console.WriteLine("Kovács bolt megnyitva");
+
+            // item lista
+            // vásárlás
+            // inventory kezelés
+        }
+
+        private void OpenMarketShop()
+        {
+            Console.WriteLine("Piac megnyitva");
+            // item lista
+            // vásárlás
+            // inventory kezelés
+        }
+        private void OpenAlchemistShop()
+        {
+            Console.WriteLine("Alkimista bolt megnyitva");
+            // item lista
+            // vásárlás
+            // inventory kezelés
+        }
+
+        private void Fight()
+        {
+            //harcrendszer
+        }
     }
 }
