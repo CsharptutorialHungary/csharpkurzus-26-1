@@ -2,7 +2,7 @@
 
 namespace EmberekDB.Core;
 
-internal class EmberSerializer
+public class EmberSerializer
 {
     public List<Ember> Load()
     {
