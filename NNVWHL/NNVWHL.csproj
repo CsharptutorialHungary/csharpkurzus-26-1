@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="FishLibrary.Client\obj\**" />
+    <Compile Remove="FishLibrary.Core\obj\**" />
+    <Compile Remove="FishLibrary.Data\obj\**" />
+    <EmbeddedResource Remove="FishLibrary.Client\obj\**" />
+    <EmbeddedResource Remove="FishLibrary.Core\obj\**" />
+    <EmbeddedResource Remove="FishLibrary.Data\obj\**" />
+    <None Remove="FishLibrary.Client\obj\**" />
+    <None Remove="FishLibrary.Core\obj\**" />
+    <None Remove="FishLibrary.Data\obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".editorconfig" />
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\egrys\csharpkurzus-26-1\NNVWHL\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\egrys\csharpkurzus-26-1\NNVWHL\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\egrys\csharpkurzus-26-1\NNVWHL\.editorconfig" />
+  </ItemGroup>
+
+</Project>
