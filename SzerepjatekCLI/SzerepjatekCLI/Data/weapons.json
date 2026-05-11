@@ -1,0 +1,26 @@
+[
+  {
+    "Id": 1,
+    "Name": "Vaskard",
+    "Description": "Egyszerű vaskard",
+    "Damage": 15,
+    "Defense": 2,
+    "Weight": 5
+  },
+  {
+    "Id": 2,
+    "Name": "Harci Balta",
+    "Description": "Nehéz kétkezes balta",
+    "Damage": 25,
+    "Defense": 0,
+    "Weight": 12
+  },
+  {
+    "Id": 3,
+    "Name": "Mágikus Bot",
+    "Description": "Mana fókuszáló fegyver",
+    "Damage": 10,
+    "Defense": 1,
+    "Weight": 3
+  }
+]

@@ -16,6 +16,7 @@ namespace SzerepjatekCLI.Core
         private GameState? _state;
         private readonly StoryManager _storyManager = new StoryManager();
         private OutputService _outputService;
+        List<Weapon> _weapons = WeaponLoaderHelpers.LoadWeapons("Data/weapons.json");
 
         public void Run()
         {
@@ -60,7 +61,7 @@ namespace SzerepjatekCLI.Core
             // Inventory
             List<Item> inventory = new List<Item>
             {
-               new Weapon { Name = "Másfélkezes kard", Description = "Ez a saját kedvenc kardod", Damage = 10, Defense = 5 },
+               _weapons.First(w => w.Id == 1),
                new MoneyItem(Money.Arany, 10)
 
             };
