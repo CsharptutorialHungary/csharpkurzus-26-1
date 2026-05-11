@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="EmberekDB.Client/EmberekDB.Client.csproj" />
+  <Project Path="EmberekDB.Core/EmberekDB.Core.csproj" Id="ba8b7cb6-03f1-4108-b8ef-4594e19ef998" />
+</Solution>
