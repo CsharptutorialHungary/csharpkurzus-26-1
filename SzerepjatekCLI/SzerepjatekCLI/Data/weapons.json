@@ -1,26 +1,46 @@
 [
   {
-    "Id": 1,
+    "Type": "Weapon",
     "Name": "Vaskard",
     "Description": "Egyszerű vaskard",
+    "Weight": 5,
     "Damage": 15,
-    "Defense": 2,
-    "Weight": 5
+    "Defense": 0
   },
   {
     "Id": 2,
+    "Type": "Weapon",
     "Name": "Harci Balta",
     "Description": "Nehéz kétkezes balta",
-    "Damage": 25,
-    "Defense": 0,
-    "Weight": 12
+    "Weight": 12,
+    "Damage": 28,
+    "Defense": 0
   },
   {
     "Id": 3,
-    "Name": "Mágikus Bot",
-    "Description": "Mana fókuszáló fegyver",
+    "Type": "Weapon",
+    "Name": "Tőr",
+    "Description": "Könnyű és gyors fegyver",
+    "Weight": 2,
     "Damage": 10,
-    "Defense": 1,
-    "Weight": 3
+    "Defense": 0
+  },
+  {
+    "Id": 4,
+    "Type": "Weapon",
+    "Name": "Lovagi Kard",
+    "Description": "Jól kiegyensúlyozott kard",
+    "Weight": 7,
+    "Damage": 22,
+    "Defense": 2
+  },
+  {
+    "Id": 5,
+    "Type": "Weapon",
+    "Name": "Varázsbot",
+    "Description": "Mana vezetésére alkalmas bot",
+    "Weight": 3,
+    "Damage": 18,
+    "Defense": 1
   }
 ]

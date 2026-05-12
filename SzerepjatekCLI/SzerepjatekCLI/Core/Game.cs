@@ -5,18 +5,20 @@ using System.Text;
 using SzerepjatekCLI.Entities;
 using SzerepjatekCLI.Items;
 using SzerepjatekCLI.Services;
+using SzerepjatekCLI.Services.JsonLoaders;
 using SzerepjatekCLI.Story;
 using SzerepjatekCLI.Utils;
 
 namespace SzerepjatekCLI.Core
 {
     //
+
     public class Game
     {
         private GameState? _state;
         private readonly StoryManager _storyManager = new StoryManager();
         private OutputService _outputService;
-        List<Weapon> _weapons = WeaponLoaderHelpers.LoadWeapons("Data/weapons.json");
+        public static WeaponLoadService WeaponService { get; } = new WeaponLoadService();
 
         public void Run()
         {
@@ -26,7 +28,6 @@ namespace SzerepjatekCLI.Core
                 _state = NewGame();
             if(choice == 2)
                 _state = new LoadService().LoadGame();
-
             GameLoop();
         }
 
@@ -47,21 +48,19 @@ namespace SzerepjatekCLI.Core
             Console.WriteLine("3 - Mágus");
 
             int choice = InputHandler.ReadIntInRange(":", 1, 3);
-            Character character = choice switch
+            Player player = choice switch
             {
                 1 => new Mage(),
                 2 => new Warrior(),
                 3 => new Rogue(),
                 _ => throw new Exception("Invalid choice")
             };
-
-            Player player = new Player(character);
             player.Name = name;
 
             // Inventory
-            List<Item> inventory = new List<Item>
+            List<Item> inventory = new List<Item>()
             {
-               _weapons.First(w => w.Id == 1),
+               new Weapon { Name = "Másfélkezes kard", Description = "Ez a saját kedvenc kardod", Damage = 10, Defense = 5, Weight = 10 },
                new MoneyItem(Money.Arany, 10)
 
             };

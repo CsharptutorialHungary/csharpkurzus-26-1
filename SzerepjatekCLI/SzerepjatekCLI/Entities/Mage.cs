@@ -4,13 +4,14 @@ using System.Text;
 
 namespace SzerepjatekCLI.Entities
 {
-    internal class Mage : Character
+    internal class Mage : Player
     {
-        public Mage() : base(80, 25) { }
+        public Mage(){ }
 
         public override int Attack()
         {
             return AttackPower + Random.Shared.Next(5, 15);
         }
+
     }
 }

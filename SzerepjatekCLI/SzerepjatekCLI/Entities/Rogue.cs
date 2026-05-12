@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SzerepjatekCLI.Entities
 {
-    public class Rogue : Character
+    public class Rogue : Player
     {
-        public Rogue() : base(90, 18) { }
+        public Rogue() { }
 
         public override int Attack()
         {

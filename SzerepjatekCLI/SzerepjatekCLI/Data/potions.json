@@ -1,0 +1,10 @@
+[
+  {
+    "Id": 100,
+    "Type": "Potion",
+    "Name": "Kis gyógyital",
+    "Description": "25 HP-t gyógyít",
+    "Weight": 1,
+    "HealAmount": 25
+  }
+]
