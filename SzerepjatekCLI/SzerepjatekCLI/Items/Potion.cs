@@ -12,7 +12,7 @@ namespace SzerepjatekCLI.Items
         public string Description { get; set; }
         public bool IsHealthPotion { get; set; }
         public int HealthModifier { get; set; }
-        public string Type { get; set; }
+        //public string Type { get; set; }
         public Potion()
         {
             Type = "Potion";

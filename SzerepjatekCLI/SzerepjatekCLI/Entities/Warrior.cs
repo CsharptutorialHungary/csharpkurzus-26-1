@@ -6,7 +6,14 @@ namespace SzerepjatekCLI.Entities
 {
     internal class Warrior:Player
     {
-        public Warrior() { }
+        public Warrior() 
+        {
+            Id = "player_warrior";
+            MaxHealth = 100;
+            CurrentHealth = MaxHealth;
+            AttackPower = 20;
+            Defense = 10;
+        }
 
         public override int Attack()
         {

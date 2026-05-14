@@ -70,30 +70,27 @@ public class LoadService
     public static Item CreateItem(JsonNode json)
     {
         string type = json["Type"].GetValue<string>();
+        int id = json["Id"].GetValue<int>();
 
-        return type switch
+        switch (type)
         {
-            "Weapon" => new Weapon
-            {
-                Id = json["Id"].GetValue<int>(),
-                Name = json["Name"].GetValue<string>(),
-                Description = json["Description"].GetValue<string>(),
-                Weight = json["Weight"].GetValue<int>(),
-                //Damage = json["Damage"].GetValue<int>(),!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TODO
-                Type = "Weapon"
-            },
-
-            "Potion" => new Potion
-            {
-                Id = json["Id"].GetValue<int>(),
-                Name = json["Name"].GetValue<string>(),
-                Description = json["Description"].GetValue<string>(),
-                Weight = json["Weight"].GetValue<int>(),
-                HealthModifier = json["HealthModifier"].GetValue<int>(),
-                Type = "Potion"
-            },
-
-            _ => throw new Exception($"Unknown item type: {type}")
-        };
+            case "Weapon":
+                var weaponService = new WeaponLoadService();
+                var weapon = weaponService.GetWeaponById(id);
+                if (weapon == null)
+                    throw new Exception($"Nem találhato ilyen fegyver: {id}");
+                return weapon;
+            case "Potion":
+                var potionService = new PotionLoadService();
+                var potion = potionService.GetPotionById(id);
+                if (potion == null)
+                    throw new Exception($"Nem találhato ilyen potion: {id}");
+                return potion;
+            case "Money":
+                MoneyItem moneyItem = new MoneyItem(Money.Bronz, json["Id"].GetValue<int>());
+                return moneyItem;
+            default:
+                throw new Exception($"Rossz típus: {type}");
+        }
     }
 }

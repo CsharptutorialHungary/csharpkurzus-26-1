@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace SzerepjatekCLI.Story;
 
-internal class ActionProvider
+internal class ActionProvider //harchoz kell majd!!!!!!!!!!!!
 {
     private readonly Dictionary<string, Dictionary<string, List<string>>> _actions;
 

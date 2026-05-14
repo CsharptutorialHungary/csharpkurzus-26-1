@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 using SzerepjatekCLI.Entities;
 using SzerepjatekCLI.Items;
@@ -18,16 +19,32 @@ namespace SzerepjatekCLI.Core
         private GameState? _state;
         private readonly StoryManager _storyManager = new StoryManager();
         private OutputService _outputService;
-        public static WeaponLoadService WeaponService { get; } = new WeaponLoadService();
+        public WeaponLoadService _weaponService = new WeaponLoadService();
+
+        private bool _isSaved = true;
 
         public void Run()
         {
             int choice = Menu.ShowMainMenu();
 
-            if (choice == 1)
-                _state = NewGame();
-            if(choice == 2)
-                _state = new LoadService().LoadGame();
+            switch (choice)
+            {
+                case 1:
+                    _state = NewGame();
+                    break;
+
+                case 2:
+                    _state = new LoadService().LoadGame();
+                    _outputService = new OutputService(_state.Player.Name);
+                    break;
+
+                case 3:
+                    InputResult.InputHelper();
+                    break;
+
+                case 4:
+                    return;
+            }
             GameLoop();
         }
 
@@ -36,8 +53,8 @@ namespace SzerepjatekCLI.Core
             Console.Clear();
             Console.WriteLine("=== ÚJ JÁTÉK ===");
 
-            //Név
-            string name = InputHandler.ReadName("Add meg a karaktered nevét:");
+            //Játékos neve
+            string name = InputResult.ReadName("Add meg a karaktered nevét:");
             _outputService = new OutputService(name);
 
 
@@ -47,7 +64,7 @@ namespace SzerepjatekCLI.Core
             Console.WriteLine("2 - Íjász");
             Console.WriteLine("3 - Mágus");
 
-            int choice = InputHandler.ReadIntInRange(":", 1, 3);
+            int choice = InputResult.ReadPureIntInRange(":", 1, 3);
             Player player = choice switch
             {
                 1 => new Mage(),
@@ -58,22 +75,21 @@ namespace SzerepjatekCLI.Core
             player.Name = name;
 
             // Inventory
-            List<Item> inventory = new List<Item>()
+            player.Inventory = new List<Item>()
             {
-               new Weapon { Name = "Másfélkezes kard", Description = "Ez a saját kedvenc kardod", Damage = 10, Defense = 5, Weight = 10 },
-               new MoneyItem(Money.Arany, 10)
+                _weaponService.GetWeaponById(0), // alap kard
+                new MoneyItem(Money.Arany, 10)
 
             };
-            player.Inventory = inventory;
+            
 
             // GameState létrehozása
             var state = new GameState
             {
                 Player = player,
                 CurrentLocation = "megbizolevel", // a story.json első node-ja
-                //Inventory = player.Inventory
             };
-
+            Console.Clear();
             return state;
         }
 
@@ -85,7 +101,7 @@ namespace SzerepjatekCLI.Core
                 // Console.WriteLine(node.Text);
                 _outputService.Write(node.Text);
 
-                if (node.Choices.Count == 0)
+                if (_storyManager.IsEndNode(_state.CurrentLocation))
                 {
                     Console.WriteLine("A játék véget ért.");
                     break;
@@ -96,22 +112,70 @@ namespace SzerepjatekCLI.Core
                 {
                     Console.WriteLine($"{i + 1}: {node.Choices[i].Text}");
                 }
+
+                //itt kell belépni az actionnek megfelelően
+                if(node.Action != null)
+                {
+                    _storyManager.HandleAction(node.Action);
+                    continue;
+                }
+
+
                 // választás
-                int choice = InputHandler.ReadIntInRange(":", 1, node.Choices.Count, _state);
+                InputResult choice = InputResult.ReadIntInRange(":", 1, node.Choices.Count, _state);
+
+                switch (choice.Action)
+                {
+                    case InputAction.Help:
+                        InputResult.InputHelper();
+                        continue;
+
+                    case InputAction.ShowInventory:
+
+                        Console.WriteLine("Hátizsák:");
+
+                        foreach (var item in _state.Player.Inventory)
+                        {
+                            Console.WriteLine(item);
+                        }
+
+                        Console.ReadKey();
+                        continue;
+
+                    case InputAction.InGameMenu: //ingame menüre váltás
+
+                        MenuResult menuResult =
+                            Menu.ShowInGameMenu(_state, _isSaved);
+
+                        switch (menuResult)
+                        {
+                            case MenuResult.Continue:
+                                continue;
+
+                            case MenuResult.BackToMainMenu:
+                                Menu.ShowMainMenu();
+                                return;
+
+                            case MenuResult.Exit:
+                                Environment.Exit(0);
+                                break;
+                        }
+
+                        break;
+                }
+
+
+
 
                 // állapot frissítés
                 _state = _state with
                 {
-                    CurrentLocation = node.Choices[choice - 1].Next
+                    CurrentLocation = node.Choices[choice.Value.Value - 1].Next
                 };
+                _isSaved = false;
+                Console.Clear();
             }
-        }
 
-        public void ContinueGame(GameState gameState)
-        {
-            _state = gameState;
-            _outputService.Write((_storyManager.GetNode(_state.CurrentLocation)).Text);
-            GameLoop();
         }
     }
 }

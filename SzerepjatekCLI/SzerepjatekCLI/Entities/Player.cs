@@ -13,8 +13,8 @@ public class Player : Character
     {
     }
     public override int Attack()
-    {
-        //ide kell majd megírni a harcrendszert vagy innen kell rá hivatkozni. Sőt, ezt kell meghívni a public harcnrendszerből
+    { 
+        //ide kell majd megírni a harcrendszert vagy innen kell rá hivatkozni. Sőt, ezt kell meghívni a public harcnrendszerből TODO
         return AttackPower;
     }
     public bool isFitInInventory(Item item)

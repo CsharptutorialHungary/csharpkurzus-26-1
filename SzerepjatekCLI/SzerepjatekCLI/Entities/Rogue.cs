@@ -6,7 +6,14 @@ namespace SzerepjatekCLI.Entities
 {
     public class Rogue : Player
     {
-        public Rogue() { }
+        public Rogue() 
+        {
+            Id = "player_rogue";
+            MaxHealth = 80;
+            CurrentHealth = MaxHealth;
+            AttackPower = 15;
+            Defense = 5;
+        }
 
         public override int Attack()
         {

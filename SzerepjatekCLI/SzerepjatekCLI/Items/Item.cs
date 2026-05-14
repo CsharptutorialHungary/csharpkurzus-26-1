@@ -11,6 +11,8 @@ namespace SzerepjatekCLI.Items
         public string Name { get; set; }
 
         public int Weight { get; set; } = 0;
+        public string Type { get; set; }
+
 
         public string toString()
         {

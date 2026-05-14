@@ -20,12 +20,12 @@ namespace SzerepjatekCLI.Entities
 
         public List<Item> Inventory { get; set; } = new();
 
-        protected Character(int maxHealth, int attackPower)
+        /*protected Character(int maxHealth, int attackPower)
         {
             MaxHealth = maxHealth;
             CurrentHealth = maxHealth;
             AttackPower = attackPower;
-        }
+        }*/
 
         public Character()
         {

@@ -9,7 +9,6 @@ namespace SzerepjatekCLI.Items
     {
         public string Description { get; set; }
         ///public int Weight { get; set; }
-        public string Type { get; set; }
         public int Damage { get; set; }
         public int Defense { get; set; }
      

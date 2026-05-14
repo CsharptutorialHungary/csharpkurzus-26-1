@@ -48,7 +48,7 @@ namespace SzerepjatekCLI.Story
             var node = GetNode(id);
             return node.Choices == null || node.Choices.Count == 0;
         }
-        void HandleAction(string action) //lehet hogy private lesz, mert csak a StoryManager-en belül használjuk
+        public void HandleAction(string action) //lehet hogy private lesz, mert csak a StoryManager-en belül használjuk
         {
             switch (action)
             {
@@ -73,9 +73,7 @@ namespace SzerepjatekCLI.Story
         {
             Console.WriteLine("Kovács bolt megnyitva");
 
-            // item lista
-            // vásárlás
-            // inventory kezelés
+            
         }
 
         private void OpenMarketShop()
