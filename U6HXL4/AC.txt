@@ -1,0 +1,14 @@
+Nem kihagyható
+
+A program hiba nélkül lefordul (sikeres Build).
+Tartalmaz kivételkezelést (try-catch blokkokat) --DONE
+Hiba esetén egyértelmű, felhasználóbarát hibaüzeneteket ír ki a képernyőre.
+
+Kötelező (egy elhagyható ha van test)
+adat olvasása fájlból szerializáció segítségével (pl.: Adat betöltés és/vagy mentés JSON/XML fájlból/fájlba)
+legyen benne saját immutable type (pl.: record class) --DONE (Throw.cs)
+legyen benne LINQ segítségével: szűrés (where), csoportosítás (group by), rendezés (order by), agregáció (Pl.: Min(), Max(), First(), FirstOrDefault, Average(), stb...) közül legalább kettő -- DONE (Player.getMaxThrow, Game.Scoreboard)
+Legyen benne generikus kollekció (pl.: List, Stack, stb...) --DONE (Game.players)
+
+
+legyen csini :D

@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="AC.txt" />
+  </Folder>
+  <Project Path="Darts.Client/Darts.Client.csproj">
+    <BuildDependency Project="Darts.Core.Tests/Darts.Core.Tests.csproj" />
+  </Project>
+  <Project Path="Darts.Core.Tests/Darts.Core.Tests.csproj" />
+  <Project Path="Darts.Core/Darts.Core.csproj" />
+</Solution>
