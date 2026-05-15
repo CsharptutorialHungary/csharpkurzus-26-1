@@ -9,7 +9,7 @@ public static class GameFactory
 {
     public static GameController Create()
     {
-        int height = 3, width = 3; //default values
+        int  height = 3, width = 3; //default values
         Console.WriteLine("Please enter the width of the field: ");
         int.TryParse(Console.ReadLine(), out width);
         Console.WriteLine("Please enter the height of the field: ");
@@ -17,6 +17,7 @@ public static class GameFactory
 
         FieldRenderer fieldGenerator = new FieldRenderer(width, height);
         fieldGenerator.GenerateField();
-        return new GameController(fieldGenerator);
+        CursorController cursorController = new CursorController(fieldGenerator);
+        return new GameController(fieldGenerator, cursorController);
     }
 }
