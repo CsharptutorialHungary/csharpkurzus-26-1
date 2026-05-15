@@ -2,6 +2,4 @@
   <Project Path="ExpenseTracker.Client/ExpenseTracker.Client.csproj" />
   <Project Path="ExpenseTracker.Core.Tests/ExpenseTracker.Core.Tests.csproj" />
   <Project Path="ExpenseTracker.Core/ExpenseTracker.Core.csproj" />
-  <Project Path="ExpenseTracker.HTTP/ExpenseTracker.HTTP.csproj" />
-  <Project Path="ExpenseTracker.Server/ExpenseTracker.Server.csproj" />
 </Solution>
