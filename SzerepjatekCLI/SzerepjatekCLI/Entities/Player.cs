@@ -17,13 +17,4 @@ public class Player : Character
         //ide kell majd megírni a harcrendszert vagy innen kell rá hivatkozni. Sőt, ezt kell meghívni a public harcnrendszerből TODO
         return AttackPower;
     }
-    public bool isFitInInventory(Item item)
-    {
-        int totalWeight = 0;
-        foreach (var i in Inventory)
-        {
-            totalWeight += i.Weight;
-        }
-        return totalWeight + item.Weight <= 100;
-    }
 }

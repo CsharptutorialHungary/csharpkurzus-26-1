@@ -16,7 +16,24 @@ public class LoadService
 
     public GameState LoadGame()
     {
-        return LoadFromFile($"{saveDirectory}/save.json");
+        try
+        {
+            string file = File.ReadAllText($"{saveDirectory}/save.json");
+            GameState? state = JsonSerializer.Deserialize<GameState>(file, new JsonSerializerOptions { WriteIndented = true });
+            if (state == null)
+            {
+                Console.WriteLine("Hiba a mentés betöltésekor.");
+                return null;
+            }
+            return state;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading game: {ex}");
+            return null;
+        }
+
+        //return LoadFromFile($"{saveDirectory}/save.json");
     }
 
     private GameState LoadFromFile(string filePath)
@@ -44,7 +61,7 @@ public class LoadService
             };
 
 
-            List<Item> inventory = new();
+            Inventory inventory = new();
 
             foreach (var itemNode in playerNode["Inventory"].AsArray())
             {

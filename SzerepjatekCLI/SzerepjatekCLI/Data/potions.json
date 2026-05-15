@@ -1,10 +1,66 @@
 [
   {
-    "Id": 100,
-    "Type": "Potion",
+    "Id": 0,
     "Name": "Kis gyógyital",
     "Description": "25 HP-t gyógyít",
     "Weight": 1,
-    "HealAmount": 25
+    "IsHealthPotion": true,
+    "HealthModifier": 25
+  },
+  {
+    "Id": 1,
+    "Name": "Közepes gyógyital",
+    "Description": "50 HP-t gyógyít",
+    "Weight": 2,
+    "IsHealthPotion": true,
+    "HealthModifier": 50
+  },
+  {
+    "Id": 2,
+    "Name": "Nagy gyógyital",
+    "Description": "100 HP-t gyógyít",
+    "Weight": 3,
+    "IsHealthPotion": true,
+    "HealthModifier": 100
+  },
+  {
+    "Id": 3,
+    "Name": "Regenerációs főzet",
+    "Description": "10 HP-t gyógyít körönként",
+    "Weight": 2,
+    "IsHealthPotion": true,
+    "HealthModifier": 10
+  },
+  {
+    "Id": 4,
+    "Name": "Legendás gyógyital",
+    "Description": "Teljesen feltölti az életerőt",
+    "Weight": 5,
+    "IsHealthPotion": true,
+    "HealthModifier": 999
+  },
+  {
+    "Id": 5,
+    "Name": "Mérgezett ital",
+    "Description": "20 HP-t sebez",
+    "Weight": 1,
+    "IsHealthPotion": false,
+    "HealthModifier": 20
+  },
+  {
+    "Id": 6,
+    "Name": "Életveszélyes ital",
+    "Description": "50 HP-t sebez",
+    "Weight": 2,
+    "IsHealthPotion": false,
+    "HealthModifier": 50
+  }
+  {
+    "Id": 7,
+    "Name": "Altató főzet",
+    "Description": "Elaltatja a fogyasztót",
+    "Weight": 3,
+    "IsHealthPotion": false,
+    "HealthModifier": 0
   }
 ]

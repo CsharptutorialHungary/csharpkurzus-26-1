@@ -10,8 +10,6 @@ namespace SzerepjatekCLI.Utils
     public enum InputAction
     {
         None,
-        Valid,
-        Invalid,
         Help,
         MainMenu,
         InGameMenu,

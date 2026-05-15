@@ -14,7 +14,7 @@ namespace SzerepjatekCLI.Services
             try {
             Console.WriteLine("Mentés...");
             string json = JsonSerializer.Serialize(gameState, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, json);
+            File.WriteAllText(filePath, json, Encoding.UTF8);
             Console.WriteLine("Játék sikeresen mentve: {0}. Nyomj meg egy gombot a folytatáshoz...", filePath);
             Console.ReadKey();
             return true;

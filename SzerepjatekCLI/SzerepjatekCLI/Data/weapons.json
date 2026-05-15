@@ -1,7 +1,6 @@
 [
   {
     "Id": 0,
-    "Type": "Weapon",
     "Name": "Másfélkezes kard",
     "Description": "Ez a saját kedvenc kardod",
     "Weight": 10,
@@ -10,7 +9,6 @@
   },
   {
     "Id": 1,
-    "Type": "Weapon",
     "Name": "Vaskard",
     "Description": "Egyszerű vaskard",
     "Weight": 5,
@@ -19,7 +17,6 @@
   },
   {
     "Id": 2,
-    "Type": "Weapon",
     "Name": "Harci Balta",
     "Description": "Nehéz kétkezes balta",
     "Weight": 12,
@@ -28,7 +25,6 @@
   },
   {
     "Id": 3,
-    "Type": "Weapon",
     "Name": "Tőr",
     "Description": "Könnyű és gyors fegyver",
     "Weight": 2,
@@ -37,7 +33,6 @@
   },
   {
     "Id": 4,
-    "Type": "Weapon",
     "Name": "Lovagi Kard",
     "Description": "Jól kiegyensúlyozott kard",
     "Weight": 7,
@@ -46,7 +41,6 @@
   },
   {
     "Id": 5,
-    "Type": "Weapon",
     "Name": "Varázsbot",
     "Description": "Mana vezetésére alkalmas bot",
     "Weight": 3,

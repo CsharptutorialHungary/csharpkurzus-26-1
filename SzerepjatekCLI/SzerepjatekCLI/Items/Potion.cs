@@ -12,10 +12,9 @@ namespace SzerepjatekCLI.Items
         public string Description { get; set; }
         public bool IsHealthPotion { get; set; }
         public int HealthModifier { get; set; }
-        //public string Type { get; set; }
+
         public Potion()
         {
-            Type = "Potion";
         }
         public Character Drink(Character character)
         {
@@ -29,7 +28,7 @@ namespace SzerepjatekCLI.Items
         }
         public override string ToString()
         {
-            return $"{Name} - {Description} - Súly: {Weight}";
+            return $"{Name} - {Description}";
         }
 
     }

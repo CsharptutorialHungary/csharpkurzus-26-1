@@ -12,14 +12,12 @@ using SzerepjatekCLI.Utils;
 
 namespace SzerepjatekCLI.Core
 {
-    //
-
     public class Game
     {
         private GameState? _state;
         private readonly StoryManager _storyManager = new StoryManager();
         private OutputService _outputService;
-        public WeaponLoadService _weaponService = new WeaponLoadService();
+        private WeaponLoadService _weaponService = new WeaponLoadService();
 
         private bool _isSaved = true;
 
@@ -61,33 +59,30 @@ namespace SzerepjatekCLI.Core
             //Karakter választás
             Console.WriteLine("\nVálassz karaktert:");
             Console.WriteLine("1 - Harcos");
-            Console.WriteLine("2 - Íjász");
+            Console.WriteLine("2 - Vándor");
             Console.WriteLine("3 - Mágus");
 
             int choice = InputResult.ReadPureIntInRange(":", 1, 3);
             Player player = choice switch
             {
-                1 => new Mage(),
-                2 => new Warrior(),
-                3 => new Rogue(),
+                1 => new Warrior(),
+                2 => new Rogue(),
+                3 => new Mage(),
                 _ => throw new Exception("Invalid choice")
             };
             player.Name = name;
 
             // Inventory
-            player.Inventory = new List<Item>()
-            {
-                _weaponService.GetWeaponById(0), // alap kard
-                new MoneyItem(Money.Arany, 10)
-
-            };
+            player.Inventory = new Inventory();
+            player.Inventory.Add(_weaponService.GetWeaponById(0)); // alap kard
+            player.Inventory.Add(new MoneyItem(Money.Arany, 10));
             
 
             // GameState létrehozása
             var state = new GameState
             {
                 Player = player,
-                CurrentLocation = "megbizolevel", // a story.json első node-ja
+                CurrentLocation = "Megbízólevél", // a story.json első node-ja
             };
             Console.Clear();
             return state;
@@ -98,8 +93,7 @@ namespace SzerepjatekCLI.Core
             while (true)
             {
                 StoryNode node = _storyManager.GetNode(_state.CurrentLocation);
-                // Console.WriteLine(node.Text);
-                _outputService.Write(node.Text);
+                _outputService.Write(node);
 
                 if (_storyManager.IsEndNode(_state.CurrentLocation))
                 {
@@ -107,18 +101,26 @@ namespace SzerepjatekCLI.Core
                     break;
                 }
 
+                if (node.Action != null && node.Action.Contains("shop"))
+                {
+                    _state = _storyManager.HandleShopAction(node.Action, _state); //így hogy vásárlás nélkül is felül csapja az erdetit, így tudok majd belerakni később kiható elemeket (már beszélt ezzel, azzal, vett, jobb lesz a kapcsolata velük, kihathat későbbre)
+                    _state = _state with
+                    {
+                        CurrentLocation = node.Choices[0].Next
+                    };
+                    _isSaved = false;
+                    Console.Clear();
+                    continue;
+                }
 
                 for (int i = 0; i < node.Choices.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}: {node.Choices[i].Text}");
                 }
 
-                //itt kell belépni az actionnek megfelelően
-                if(node.Action != null)
-                {
-                    _storyManager.HandleAction(node.Action);
-                    continue;
-                }
+
+                //itt kell belépni az actionnek mert még a vásárlás döntését ki kell írni ha van
+                
 
 
                 // választás
@@ -134,10 +136,7 @@ namespace SzerepjatekCLI.Core
 
                         Console.WriteLine("Hátizsák:");
 
-                        foreach (var item in _state.Player.Inventory)
-                        {
-                            Console.WriteLine(item);
-                        }
+                        Console.WriteLine(_state.Player.Inventory.ToString());
 
                         Console.ReadKey();
                         continue;

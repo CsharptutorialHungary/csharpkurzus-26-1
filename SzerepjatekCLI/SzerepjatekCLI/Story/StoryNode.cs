@@ -6,7 +6,7 @@ namespace SzerepjatekCLI.Story
 {
     using System.Text.Json.Serialization;
 
-    record class StoryNode
+    public record class StoryNode
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }

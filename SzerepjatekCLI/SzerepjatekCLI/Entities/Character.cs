@@ -18,7 +18,7 @@ namespace SzerepjatekCLI.Entities
         public int AttackPower { get; init; }
         public int Defense { get; init; }
 
-        public List<Item> Inventory { get; set; } = new();
+        public Inventory Inventory { get; set; } = new();
 
         /*protected Character(int maxHealth, int attackPower)
         {

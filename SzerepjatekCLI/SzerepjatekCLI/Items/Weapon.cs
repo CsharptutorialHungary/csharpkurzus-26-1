@@ -11,10 +11,9 @@ namespace SzerepjatekCLI.Items
         ///public int Weight { get; set; }
         public int Damage { get; set; }
         public int Defense { get; set; }
-     
+
         public Weapon()
         {
-           Type = "Weapon";
         }
 
         public override string ToString()

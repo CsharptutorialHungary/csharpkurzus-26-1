@@ -9,9 +9,7 @@ namespace SzerepjatekCLI.Items
 
     public class MoneyItem : Item
     {
-        public int BronzeAmount { get; private set; }
-        //public string Type { get; set; }
-
+        public int BronzeAmount { get; set; }
 
         public MoneyItem(Money currency, int amount)
         {
@@ -22,9 +20,8 @@ namespace SzerepjatekCLI.Items
                 Money.Bronz => amount,
                 _ => 0
             };
-            Id = BronzeAmount; // Id-t a pénzösszeg alapján állítjuk be
-            Type = "Money";
         }
+        public MoneyItem() { }
 
         public decimal ConvertTo(Money targetCurrency)
         {
