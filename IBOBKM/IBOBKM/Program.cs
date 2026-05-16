@@ -1,32 +1,33 @@
-﻿internal class Program
+﻿using System.IO.Pipelines;
+using System.Text.Json;
+
+internal class Program
 {
+    private readonly string[] _ingredients = new string[2];
     private static void Main(string[] args)
     {
         Program program = new Program();
         program.Run();
     }
 
-    private void Run()
+    public void Run()
     {
-        Array<string>ingredients = new Array<string>(2);
-        ConsoleColor originalForeground = Console.ForegroundColor;
-
         Console.WriteLine("Welcome to the Alchemical Laboratory!");
+
+        Beginning();
     }
 
-    private void Beginning() {
+    public void Beginning() {
         Console.WriteLine("Combine two elements, and you might just create something new!");
 
-        Console.WriteLine("Press 'X' to view your element collection.\n
-        Press 'Q' to quit the game.\n
-        Press any other key to combine elements.");
+        Console.WriteLine("Type 'X' to view your element collection, 'Q' to quit the game and any other key to combine elements.");
 
-        switch (Console.ReadKey(true).Key)
+        switch (Console.ReadLine()?.ToUpper())
         {
-            case ConsoleKey.X:
+            case "X":
                 ViewCollection();
                 break;
-            case ConsoleKey.Q:
+            case "Q":
                 Console.WriteLine("Goodbye!");
                 return;
             default:
@@ -35,22 +36,33 @@
         }
     }
 
+    private void SetConsoleColor(ElementColor color)
+    {
+        Console.Write($"\u001b[38;2;{color.red};{color.green};{color.blue}m");
+    }
+
+    
+
     private void ViewCollection() {
         Console.WriteLine("Your Element Collection:");
         foreach (var element in FoundElementDB.Instance.Elements)
         {
-            Console.ForegroundColor = element.color;
+            SetConsoleColor(element.color);
             Console.WriteLine($"{element.id}: {element.name}");
         }
-        Console.ForegroundColor = originalForeground;
+        Console.ResetColor();
         Console.WriteLine("Press S to save your collection, L to load a saved collection, or any other key to return to the lab.");
-        if (Console.ReadKey(true).Key == ConsoleKey.S)
+        switch (Console.ReadLine()?.ToUpper())
         {
-            FileHandler.SaveCollection();
-        } else if (Console.ReadKey(true).Key == ConsoleKey.L) {
-            FileHandler.LoadCollection();
-        } else {
-            Beginning();
+            case "S":
+                SaveCollection();
+                break;
+            case "L":
+                LoadCollection();
+                break;
+            default:
+                Beginning();
+                break;
         }
     }
 
@@ -60,10 +72,10 @@
         try {
             foreach (var element in FoundElementDB.Instance.Elements)
             {
-                Console.ForegroundColor = element.color;
+                SetConsoleColor(element.color);
                 Console.WriteLine($"{element.id}: {element.name}");
             }
-            Console.ForegroundColor = originalForeground;
+            Console.ResetColor();
         }
         catch (Exception ex)
         {
@@ -73,12 +85,12 @@
         }
 
         try {
-            ingredients[0] = Console.ReadLine() ?? string.Empty;
-            if (int.TryParse(ingredients[0], out int elementId))
+            _ingredients[0] = Console.ReadLine() ?? string.Empty;
+            if (int.TryParse(_ingredients[0], out int elementId))
             {
                 if (FoundElementDB.Instance.IsElementFound(elementId))
                 {
-                    ingredients[0] = ElementDB.Instance.GetElementById(elementId)?.name ?? string.Empty;
+                    _ingredients[0] = ElementDB.Instance.GetElementById(elementId)?.name ?? string.Empty;
                     GiveIngredientTwo();
                     return;
                 }
@@ -100,12 +112,12 @@
     private void GiveIngredientTwo() {
         try {
             Console.WriteLine("Please choose the second ingredient!");
-            ingredients[1] = Console.ReadLine() ?? string.Empty;
-            if (int.TryParse(ingredients[1], out int elementId))
+            _ingredients[1] = Console.ReadLine() ?? string.Empty;
+            if (int.TryParse(_ingredients[1], out int elementId))
             {
                 if (FoundElementDB.Instance.IsElementFound(elementId))
                 {
-                    ingredients[1] = ElementDB.Instance.GetElementById(elementId)?.name ?? string.Empty;
+                    _ingredients[1] = ElementDB.Instance.GetElementById(elementId)?.name ?? string.Empty;
                     CombineIngredients();
                     return;
                 }
@@ -125,26 +137,28 @@
     }
 
     private void CombineIngredients() {
+        IEnumerable<Element> result;
         try {
-            Element result = from element in ElementDB.Instance.Elements
-                 where (element.firstIngredient == ingredients[0] && element.secondIngredient == ingredients[1]) ||
-                       (element.firstIngredient == ingredients[1] && element.secondIngredient == ingredients[0])
-                 select element;
+            result =
+            from element in ElementDB.Instance.Elements
+            where (element.firstIngredient == _ingredients[0] && element.secondIngredient == _ingredients[1]) ||
+                (element.firstIngredient == _ingredients[1] && element.secondIngredient == _ingredients[0])
+            select element;
         } catch (Exception ex)
         {
             Console.WriteLine($"An error occurred while fetching combined element: {ex.Message}");
             Beginning();
             return;
         }
-
+        Element? combinedElement = result.FirstOrDefault();
         try {
-            if (result.FirstOrDefault() != null) {
-                if (!FoundElementDB.Instance.IsElementFound(result.FirstOrDefault().id))
+            if (combinedElement != null) {
+                if (!FoundElementDB.Instance.IsElementFound(combinedElement.id))
                 {
                     Console.WriteLine("Congratulations! You have discovered a new element:");
-                    Console.ForegroundColor = result.FirstOrDefault().color;
-                    Console.WriteLine(result.FirstOrDefault().name);
-                    FoundElementDB.Instance.AddFoundElement(result.FirstOrDefault().id);
+                    SetConsoleColor(combinedElement.color);
+                    Console.WriteLine(combinedElement.name);
+                    FoundElementDB.Instance.AddFoundElement(combinedElement.id);
                 } else {
                     Console.WriteLine("You have already discovered that element!");
                 }
@@ -156,6 +170,74 @@
         {
             Console.WriteLine($"An error occurred while handling fetched element: {ex.Message}");
         }
+        Beginning();
+    }
+
+    public void SaveCollection() {
+        Console.WriteLine("Please enter the name or path of the file to save the collection into:");
+        string? fileName = Console.ReadLine();
+        while (string.IsNullOrWhiteSpace(fileName)) {
+            Console.WriteLine("File name cannot be empty. Please enter a valid file name:");
+            fileName = Console.ReadLine();
+        }
+        try {
+            using (StreamWriter writer = new StreamWriter(fileName))
+            {
+                foreach (var element in FoundElementDB.Instance.Elements)
+                {
+                    String jsonElement = JsonSerializer.Serialize(element);
+                    writer.WriteLine(jsonElement);
+                }
+            }
+            Console.WriteLine("Collection saved successfully!");
+        }
+        catch (JsonException ex)
+        {
+            Console.WriteLine($"A JSON exception occurred while saving the collection: {ex.Message}");
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine($"An I/O error occurred while saving the collection: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An unexpected error occurred while saving the collection: {ex.Message}");
+        }
+        
+        Beginning();
+    }
+
+    public void LoadCollection() {
+        Console.WriteLine("Please enter the name or path of the file to load the collection from:");
+        string? fileName = Console.ReadLine();
+        while (string.IsNullOrWhiteSpace(fileName)) {
+            Console.WriteLine("File name cannot be empty. Please enter a valid file name:");
+            fileName = Console.ReadLine();
+        }
+        try {
+            using (StreamReader reader = new StreamReader(fileName))
+            {
+                string? line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    Element? element = JsonSerializer.Deserialize<Element>(line);
+                    if (element != null)
+                    {
+                        FoundElementDB.Instance.AddFoundElement(element.id);
+                    } else
+                    {
+                        throw new JsonException("Deserialized element is null.");
+                    }
+                }
+            }
+            Console.WriteLine("Collection loaded successfully!");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while loading the collection: {ex.Message}");
+        }
+        
+        Beginning();
     }
 }
 

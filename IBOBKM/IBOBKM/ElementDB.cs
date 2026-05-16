@@ -50,4 +50,5 @@ internal class ElementDB
         return _elementsById.TryGetValue(id, out var element) ? element : null;
     }
     
+    public IEnumerable<Element> Elements => _elementsById.Values;
 }
