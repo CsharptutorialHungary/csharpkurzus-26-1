@@ -38,17 +38,19 @@ public class ClientProgram
             Console.WriteLine("Use the following format for entering records: \"[Income or Expense] / Amount\"");
             Console.Write("> ");
         }
-        bool incorrectInput = true;
-        while (incorrectInput && option.Trim() == "1")
+        bool correctInput = false;
+        while (!correctInput && option.Trim() == "1")
         {
             string input = Console.ReadLine() ?? string.Empty;
             try
             {
-                TransactionParser.Parse(input);
+                Transaction transaction = TransactionParser.Parse(input);
 
-                Console.WriteLine("Transaction successfully saved");
-
-                incorrectInput = false;
+                correctInput = DataProvider.SaveTransaction(transaction);
+                if(correctInput)
+                {
+                    Console.WriteLine("Transaction successfully saved");
+                }
             }
             catch (FormatException ex)
             {

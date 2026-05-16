@@ -4,14 +4,31 @@ namespace ExpenseTracker.Core.Data;
 
 internal sealed class FileSaver
 {
-    private static readonly string FilePath = Path.Combine(Environment.CurrentDirectory, "transactions.json");
-
-    private readonly FileLoader _fileLoader = new FileLoader();
-    internal void SaveRecord(Transaction newTransaction)
+    private readonly string _filePath;
+    private readonly FileLoader _fileLoader;
+    internal FileSaver()
     {
-        if (!File.Exists(FilePath))
+        _filePath = Path.Combine(Environment.CurrentDirectory, "transactions.json");
+        _fileLoader = new FileLoader(_filePath);
+    }
+
+    internal FileSaver(string filePath)
+    {
+        _filePath = filePath;
+        _fileLoader = new FileLoader(filePath);
+        
+    }
+
+    internal bool SaveRecord(Transaction newTransaction)
+    {
+        if (newTransaction == null)
         {
-            File.Create(FilePath);
+            return false;
+        }
+
+        if (!File.Exists(_filePath))
+        {
+            File.WriteAllText(_filePath, "[]");
         }
 
         List<Transaction> transactions = _fileLoader.LoadFile();
@@ -21,6 +38,7 @@ internal sealed class FileSaver
 
         string updatedJson = JsonSerializer.Serialize(transactions, options);
 
-        File.WriteAllText(FilePath, updatedJson);
+        File.WriteAllText(_filePath, updatedJson);
+        return true;
     }
 }

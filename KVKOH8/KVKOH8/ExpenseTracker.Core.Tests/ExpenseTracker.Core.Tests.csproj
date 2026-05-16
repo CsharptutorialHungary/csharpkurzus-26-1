@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Using Include="NUnit.Framework" />
+    <ProjectReference Include="..\ExpenseTracker.Core\ExpenseTracker.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,4 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="ExpenseTracker.Core.Tests"/>
+  </ItemGroup>
 </Project>

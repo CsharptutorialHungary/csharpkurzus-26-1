@@ -6,7 +6,7 @@ namespace ExpenseTracker.Core;
 public sealed class TransactionParser
 {
     private static readonly FileSaver _saver = new FileSaver();
-    public static void Parse(string input)
+    public static Transaction Parse(string input)
     {
         string[] parts = input.Split('/', TrimEntries | RemoveEmptyEntries);
         
@@ -36,6 +36,6 @@ public sealed class TransactionParser
             throw new FormatException("Amount must be a valid number");
         }
 
-        _saver.SaveRecord(new Transaction(DateTime.UtcNow, transactionType, amount));
+        return new Transaction(DateTime.UtcNow, transactionType, amount);
     }
 }

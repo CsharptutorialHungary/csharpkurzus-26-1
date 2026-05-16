@@ -7,7 +7,16 @@ namespace ExpenseTracker.Core.Data;
 
 internal class FileLoader
 {
-    private static readonly string FilePath = Path.Combine(Environment.CurrentDirectory, "transactions.json");
+    private readonly string FilePath;
+
+    internal FileLoader()
+    {
+        FilePath = Path.Combine(Environment.CurrentDirectory, "transactions.json");
+    }
+    internal FileLoader(string filePath)
+    {
+        FilePath = filePath;
+    }
 
     internal List<Transaction> LoadFile()
     {

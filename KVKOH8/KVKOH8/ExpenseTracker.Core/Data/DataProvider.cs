@@ -24,4 +24,11 @@ public static class DataProvider
 
         return result;
     }
+
+    public static bool SaveTransaction(Transaction transaction)
+    {
+        FileSaver saver = new FileSaver();
+        saver.SaveRecord(transaction);
+        return true;
+    }
 }
