@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="FK1C6Z.Client/FK1C6Z.csproj" />
+  <Project Path="FK1C6Z.Core/FK1C6Z.Core.csproj" />
+  <Project Path="FK1C6Z.Infrastructure/FK1C6Z.Infrastructure.csproj" />
+  <Project Path="FK1C6Z.Tests/FK1C6Z.Tests.csproj" />
+</Solution>
