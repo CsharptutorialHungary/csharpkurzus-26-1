@@ -1,11 +1,11 @@
-﻿using System.Globalization;
-
+﻿using ExpenseTracker.Core.Data;
 using static System.StringSplitOptions;
 
 namespace ExpenseTracker.Core;
 
-public class TransactionParser
+public sealed class TransactionParser
 {
+    private static readonly FileSaver _saver = new FileSaver();
     public static Transaction Parse(string input)
     {
         string[] parts = input.Split('/', TrimEntries | RemoveEmptyEntries);
@@ -36,7 +36,7 @@ public class TransactionParser
             throw new FormatException("Amount must be a valid number");
         }
 
-
+        _saver.SaveRecord(new Transaction(DateTime.UtcNow, transactionType, amount));
         return new Transaction(DateTime.UtcNow, transactionType, amount);
     }
 }
