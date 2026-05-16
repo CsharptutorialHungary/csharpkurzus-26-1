@@ -1,6 +1,6 @@
 <Solution>
-  <Project Path="../FK1C6Z.Core/FK1C6Z.Core.csproj" Id="34c25d65-d19e-4f89-8a13-211764c9f18d" />
-  <Project Path="../FK1C6Z.Infrastructure/FK1C6Z.Infrastructure.csproj" Id="172b35d2-71b4-4f1c-b7d9-46825c8e5d84" />
-  <Project Path="../FK1C6Z.Tests/FK1C6Z.Tests.csproj" Id="41bd1fd2-e353-4b2a-ae98-a214a7056bae" />
-  <Project Path="FK1C6Z.csproj" />
+  <Project Path="FK1C6Z.Client/FK1C6Z.csproj" />
+  <Project Path="FK1C6Z.Core/FK1C6Z.Core.csproj" />
+  <Project Path="FK1C6Z.Infrastructure/FK1C6Z.Infrastructure.csproj" />
+  <Project Path="FK1C6Z.Tests/FK1C6Z.Tests.csproj" />
 </Solution>
