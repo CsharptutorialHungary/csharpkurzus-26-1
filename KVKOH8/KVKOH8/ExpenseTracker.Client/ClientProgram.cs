@@ -15,7 +15,6 @@ public class ClientProgram
 
         while(incorrectOption)
         {
-            Console.WriteLine(AppContext.BaseDirectory);
             Console.WriteLine("=====================================================");
             Console.WriteLine("Please Select one of the following options:");
             Console.WriteLine("1. Input new record");
@@ -60,8 +59,7 @@ public class ClientProgram
 
         if (option.Trim() == "2")
         {
-            DataProvider _dataProvider = new();
-            foreach (string transaction in _dataProvider.ListAllRecords())
+            foreach (string transaction in DataProvider.ListAllRecords())
             {
                 Console.WriteLine($"{transaction}");
             }
@@ -69,7 +67,10 @@ public class ClientProgram
 
         if (option.Trim() == "3")
         {
-            //TODO: List statistics
+            foreach (string statistic in StatisticsProvider.GetAllStatistics())
+            {
+                Console.WriteLine(statistic);
+            }
         }
 
         return 0;

@@ -1,14 +1,14 @@
 ﻿namespace ExpenseTracker.Core.Data;
 
-public sealed class DataProvider
+public static class DataProvider
 {
-    private readonly FileLoader _fileLoader = new FileLoader();
-    internal List<Transaction> GetAllRecords()
+    internal static List<Transaction> GetAllRecords()
     {
+        FileLoader _fileLoader = new FileLoader();
         return _fileLoader.LoadFile();
     }
 
-    public List<string> ListAllRecords()
+    public static List<string> ListAllRecords()
     {
         List<string> result = [];
         foreach (Transaction transaction in GetAllRecords())
