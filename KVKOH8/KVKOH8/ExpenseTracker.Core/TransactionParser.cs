@@ -6,7 +6,7 @@ namespace ExpenseTracker.Core;
 public sealed class TransactionParser
 {
     private static readonly FileSaver _saver = new FileSaver();
-    public static Transaction Parse(string input)
+    public static void Parse(string input)
     {
         string[] parts = input.Split('/', TrimEntries | RemoveEmptyEntries);
         
@@ -37,6 +37,5 @@ public sealed class TransactionParser
         }
 
         _saver.SaveRecord(new Transaction(DateTime.UtcNow, transactionType, amount));
-        return new Transaction(DateTime.UtcNow, transactionType, amount);
     }
 }

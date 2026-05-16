@@ -1,7 +1,7 @@
 ﻿namespace ExpenseTracker.Core;
 
-public enum TransactionType
+internal enum TransactionType
 {
-    Income,
-    Expense
+    Income, // = 0
+    Expense // = 1
 }

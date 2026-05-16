@@ -1,4 +1,6 @@
 ﻿using ExpenseTracker.Core;
+using ExpenseTracker.Core.Data;
+using ExpenseTracker.Core.Data.Statistics;
 
 namespace ExpenseTracker.Client;
 
@@ -20,8 +22,9 @@ public class ClientProgram
             Console.WriteLine("2. List all stored records");
             Console.WriteLine("3. List expense statistics");
             Console.Write("> ");
+
             option = Console.ReadLine() ?? string.Empty;
-            if (option.Trim() == "1" || option.Trim() == "2")
+            if (option.Trim() == "1" || option.Trim() == "2" || option.Trim() == "3")
             {
                 incorrectOption = false;
             } 
@@ -42,10 +45,9 @@ public class ClientProgram
             string input = Console.ReadLine() ?? string.Empty;
             try
             {
-                Transaction parsedTransaction = TransactionParser.Parse(input);
+                TransactionParser.Parse(input);
 
-                Console.WriteLine("Transaction successfully parsed");
-                Console.WriteLine(parsedTransaction);
+                Console.WriteLine("Transaction successfully saved");
 
                 incorrectInput = false;
             }
@@ -56,9 +58,13 @@ public class ClientProgram
             }
         }
 
-        if(option.Trim() == "2")
+        if (option.Trim() == "2")
         {
-            //TODO: List all stored records
+            DataProvider _dataProvider = new();
+            foreach (string transaction in _dataProvider.ListAllRecords())
+            {
+                Console.WriteLine($"{transaction}");
+            }
         }
 
         if (option.Trim() == "3")

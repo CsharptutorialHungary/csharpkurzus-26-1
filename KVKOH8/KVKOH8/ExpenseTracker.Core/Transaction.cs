@@ -1,6 +1,6 @@
 ﻿namespace ExpenseTracker.Core;
 
-public record Transaction(
+internal record Transaction(
     DateTime date,
     TransactionType type,
     decimal amount

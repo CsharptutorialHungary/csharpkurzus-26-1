@@ -11,7 +11,6 @@ internal class FileLoader
 
     internal List<Transaction> LoadFile()
     {
-
         if (!File.Exists(FilePath))
         {
             return new List<Transaction>();
