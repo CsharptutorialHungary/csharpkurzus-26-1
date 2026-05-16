@@ -40,6 +40,12 @@ public class Inventory
             Backpack.Add(new MoneyItem(money, amount));
         }
     }
+
+    public bool ContainsPoison()
+    {
+        return Backpack.OfType<Potion>().Any(p => !p.IsHealthPotion);
+    }
+
     public void RemoveMoney(Money money, int amount)
     {
         if (amount < 0)

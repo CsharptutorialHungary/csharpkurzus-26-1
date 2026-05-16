@@ -14,7 +14,7 @@ public class LoadService
 {
     private readonly string saveDirectory = "Data";
 
-    public GameState LoadGame()
+    public GameState? LoadGame()
     {
         try
         {

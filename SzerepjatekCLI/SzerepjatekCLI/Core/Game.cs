@@ -76,7 +76,7 @@ namespace SzerepjatekCLI.Core
             player.Inventory = new Inventory();
             player.Inventory.Add(_weaponService.GetWeaponById(0)); // alap kard
             player.Inventory.Add(new MoneyItem(Money.Arany, 10));
-            
+
 
             // GameState létrehozása
             var state = new GameState
@@ -101,9 +101,10 @@ namespace SzerepjatekCLI.Core
                     break;
                 }
 
+                //bolt
                 if (node.Action != null && node.Action.Contains("shop"))
                 {
-                    _state = _storyManager.HandleShopAction(node.Action, _state); //így hogy vásárlás nélkül is felül csapja az erdetit, így tudok majd belerakni később kiható elemeket (már beszélt ezzel, azzal, vett, jobb lesz a kapcsolata velük, kihathat későbbre)
+                    _storyManager.HandleShopAction(node.Action, _state); //így hogy vásárlás nélkül is felül csapja az erdetit, így tudok majd belerakni később kiható elemeket (már beszélt ezzel, azzal, vett, jobb lesz a kapcsolata velük, kihathat későbbre)
                     _state = _state with
                     {
                         CurrentLocation = node.Choices[0].Next
@@ -113,17 +114,13 @@ namespace SzerepjatekCLI.Core
                     continue;
                 }
 
+
+
+                //basic story haladás döntésekkel
                 for (int i = 0; i < node.Choices.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}: {node.Choices[i].Text}");
                 }
-
-
-                //itt kell belépni az actionnek mert még a vásárlás döntését ki kell írni ha van
-                
-
-
-                // választás
                 InputResult choice = InputResult.ReadIntInRange(":", 1, node.Choices.Count, _state);
 
                 switch (choice.Action)
@@ -138,6 +135,11 @@ namespace SzerepjatekCLI.Core
 
                         Console.WriteLine(_state.Player.Inventory.ToString());
 
+                        Console.ReadKey();
+                        continue;
+
+                    case InputAction.CharacterStats:
+                        _state.Player.PrintStats(_state.Player.Stats);
                         Console.ReadKey();
                         continue;
 

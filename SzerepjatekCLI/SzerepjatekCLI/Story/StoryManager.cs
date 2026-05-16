@@ -90,7 +90,7 @@ namespace SzerepjatekCLI.Story
             {
                 Console.WriteLine($"{i}. Fegyver neve: {_weaponService.Weapons[i].Name} , Sebzés: {_weaponService.Weapons[i].Damage} Ár: {_weaponService.Weapons[i].Weight} ezüst");
             }
-            Console.WriteLine($"Nyomj {_weaponService.Weapons.Count + 1} ha nem akarosz semmit se venni.");
+            Console.WriteLine($"Nyomj {_weaponService.Weapons.Count} ha nem akarosz semmit se venni.");
             int choise = InputResult.ReadPureIntInRange("Válassz egy fegyvert (a sorszám alapján): ", 1, _weaponService.Weapons.Count + 1);
             if (choise == _weaponService.Weapons.Count + 1)
             {
@@ -118,7 +118,7 @@ namespace SzerepjatekCLI.Story
             PotionLoadService _potionService = new PotionLoadService();
             for (int i = 1; i < _potionService.Potions.Count; i++)
             {
-                Console.WriteLine($"{i}. {_potionService.Potions[i].ToString} Ár: {_potionService.Potions[i].Weight * 10} ezüst");
+                Console.WriteLine($"{i}. {_potionService.Potions[i]} Ár: {_potionService.Potions[i].Weight * 10} ezüst");
             }
             Console.WriteLine($"Nyomj {_potionService.Potions.Count} ha nem akarosz semmit se venni.");
             int choise = InputResult.ReadPureIntInRange("Válassz egy varázsitalt (a sorszám alapján): ", 1, _potionService.Potions.Count + 1);
@@ -161,11 +161,4 @@ namespace SzerepjatekCLI.Story
         }
     }
 }
-//kapok egy végtelen loopot ha bemegyek egy boltba, a story.jsonben be van égetve egy vásárlás azt ki kell törölni, 
-//A GameLoopban a vásárlást át kell nézni, amiatt van a végtelen loop mert nem lépek tovább
-//Frucsa  a bolt kiírás a fizetés sem működik
-//json serializcióban van olyan hogy le tudom tárolni a weapon és money elemeket külön nem csak itemeket
-//ha van ey leszármazási fám és az ősosztályt szerializálom akkor hogyan lehet hogy a leszármazott ősosztályok szerializálódjanak
-//Az id lehetne ékezetes magyarul és mindenho lmint cím/helyszín ki lehetne iratni, és nem kell egy címet mindegyikhez hozzáadni a sztoriban
 //kilépésnél hiba van mert másra is ment kilépésnél nem csak a menüre
-//Az inventory is lehetne class amin belül van egy list<item> és lehet annak is toStringje amiben lehet orderby order ami az item egy fieldje, szebb lesz tőle kiírtaáskor, lehet egy add, egy list metódus, könnyebb lekérni a moneyt, bele mehet abba a classba az ofType

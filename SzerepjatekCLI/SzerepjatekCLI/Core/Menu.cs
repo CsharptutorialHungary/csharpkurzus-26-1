@@ -101,7 +101,7 @@ namespace SzerepjatekCLI.Core
                             Console.Clear();
                             Console.WriteLine("Segítség:");
                             Console.WriteLine("- Használd a számbillentyűket a menüpontok kiválasztásához.");
-                            List<string> list = new List<string> { "h = Segítség", "m = Menu", "i = Hátizsák" };
+                            List<string> list = new List<string> { "h = Segítség", "m = Menu", "i = Hátizsák", "s = Karakter statisztikák" };
                             foreach (var helps in list)
                             {
                                 Console.WriteLine(helps);

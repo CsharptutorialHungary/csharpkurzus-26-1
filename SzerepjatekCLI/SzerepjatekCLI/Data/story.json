@@ -73,6 +73,7 @@
     {
       "id": "ErdeiÚt",
       "content": "Ahogy elhagyod Fenyővölgyet, az ég lassan narancssárgából sötétszürkébe fordul. A nap eltűnik a hegyek mögött és hideg esti köd ereszkedik az erdőre.\n\nA szél végigsöpör a fák között, az ágak recsegnek, valahol a távolban farkasok vonyítanak. A keskeny ösvény sáros és alig látni már valamit a sűrű erdőben.\n\nÖsztönösen a fegyvered markolatára szorítasz. Az ilyen helyeken könnyű eltűnni örökre.\n\nNéhány perc múlva halvány fényt veszel észre a fák között. Közelebb érve egy kisebb tábort pillantasz meg. Viking sátrak, fegyverek és őrök.\n\nAzonnal felismered a helyzetet. Arakas emberei gyakran küldenek kisebb előőrsöket a nagy sereg előtt, hogy kifosszák és meggyengítsék a környező falvakat.\n\nMit teszel?",
+      "action": "viking_camp_encounter",
       "choices": [
         {
           "text": "Odalopakodom és megpróbálom megmérgezni őket",
@@ -105,51 +106,37 @@
     {
       "id": "MergezesZajos",
       "content": "Egy elhajított kő csattan a tábor szélén. A vikingek egy pillanatra elcsendesednek, majd néhányan felállnak és a zaj irányába indulnak.\n\nEz az esélyed. A tűz mellett álló üsthöz lopózol, és gyorsan beleöntöd a mérget az ételbe.\n\nSenki nem vett észre.",
-      "action": "poison_success",
+      "action": "poison_loud_luck",
       "choices": [
         {
           "text": "Visszahúzódom és figyelem mi történik",
-          "next": "MérgezesEredmény"
+          "next": "MergezesZajosSiker"
+        },
+        {
+          "text": "Tovább maradok a tűz mellett",
+          "next": "MergezesZajosBukta"
         }
       ]
     },
     {
       "id": "MergezesCsendes",
       "content": "A sötétben szinte eggyé válsz az erdővel. Lassan, óvatosan haladsz a sátrak között. Az őrök figyelme a tűz körül összpontosul.\n\nEgy nagy fa hordót találsz, benne az étel és ital készletekkel.\n\nEgyetlen hibás mozdulat is halálos lehet.",
-      "action": "poison_check",
+      "action": "poison_quiet_luck",
       "choices": [
         {
-          "text": "Megpróbálom belekeverni a mérget",
-          "next": "MergezesCsendesEredmeny"
-        }
-      ]
-    },
-    {
-      "id": "MérgezesEredmény",
-      "content": "A sors dönt a próbálkozásod sikeréről.",
-      "action": "resolve_poison",
-      "choices": [
-        {
-          "text": "Tovább",
-          "next": "LootVagyHarc"
-        }
-      ]
-    },
-    {
-      "id": "MergezesZajosEredmeny",
-      "content": "A kő csattanása után káosz tör ki a tábor egyik oldalán. A vikingek fele fegyvert ragad és a zaj irányába rohan.\n\nPont ez kellett.\n\nA tűz mellett maradt őrök figyelme elfordul, és te egy pillanat alatt az üsthöz lépsz. A kezed nem remeg, ahogy beleöntöd a mérget az ételbe. Az illat azonnal elnyomja a fűszeres főzet szagát.\n\nEgy rövid pillanatig minden csendes. Senki nem vett észre.\n\nDe tudod, ha lebuknál, nem lenne menekvés.",
-      "action": "poison_success",
-      "choices": [
+          "text": "Megpróbálom belekeverni a mérget és visszahúzódok",
+          "next": "MergezesCsendesSiker"
+        },
         {
           "text": "Visszahúzódom és megfigyelem a tábort",
-          "next": "MergezesEredmenyKovetkezmeny"
+          "next": "MergezesCsendesBukta"
         }
       ]
     },
     {
       "id": "MergezesCsendesSiker",
       "content": "Lélegzet-visszafojtva mozogsz a sátrak között. A tűz fénye csak néha villan rád, de az őrök nem figyelnek.\n\nA készletekhez érsz. Egy nagy fa hordóban az étel és ital egy része van eltárolva.\n\nÓvatosan kinyitod. A szag erős, fűszeres, hús és alkohol keveréke.\n\nBeleöntöd a mérget.\n\nA folyadék egy pillanatra felkavarodik, majd újra nyugodt lesz. Mintha semmi sem történt volna.\n\nLassan visszahúzódsz az árnyékok közé. A szíved még mindig gyorsan ver.",
-      "action": "poison_success",
+      "action": "poison_quiet_success",
       "choices": [
         {
           "text": "Eltűnök a tábor közeléből",
@@ -160,7 +147,7 @@
     {
       "id": "MergezesCsendesBukta",
       "content": "Ahogy a hordó fölé hajolsz, a fa halkan megnyikordul a talpad alatt.\n\nEgy pillanat.\n\nA tábor másik végéről egy viking felkapja a fejét.\n\n– 'Valami van ott...' – hallod a morgását.\n\nMielőtt reagálhatnál, már fut feléd az első őr.\n\nA mérgezés félbemarad.\n\nA lopakodásból harc lesz.",
-      "action": "poison_failed_into_combat",
+      "action": "poison_quiet_failed",
       "choices": [
         {
           "text": "Felkészülök a harcra",
@@ -169,9 +156,20 @@
       ]
     },
     {
+      "id": "MergezesZajosSiker",
+      "content": "A kő csattanása után káosz tör ki a tábor egyik oldalán. A vikingek fele fegyvert ragad és a zaj irányába rohan.\n\nPont ez kellett.\n\nA tűz mellett maradt őrök figyelme elfordul, és te egy pillanat alatt az üsthöz lépsz. A kezed nem remeg, ahogy beleöntöd a mérget az ételbe. Az illat azonnal elnyomja a fűszeres főzet szagát.\n\nEgy rövid pillanatig minden csendes. Senki nem vett észre.\n\nDe tudod, ha lebuknál, nem lenne menekvés.",
+      "action": "poison_loud_success",
+      "choices": [
+        {
+          "text": "Visszahúzódom és megfigyelem a tábort",
+          "next": "MergezesEredmenyKovetkezmeny"
+        }
+      ]
+    },
+    {
       "id": "MergezesZajosBukta",
       "content": "A kő túl hangosan csapódik a sziklának.\n\nA vikingek azonnal elhallgatnak.\n\nEgy pillanatnyi csend után minden szem rád szegeződik.\n\n– 'OTT VAN VALAKI!' – ordítja valaki.\n\nA tűz körül ülők felpattannak, fegyverek villannak.\n\nA mérgezésre már nincs esély.\n\nA tábor ellened fordul.",
-      "action": "combat_poison_failed",
+      "action": "poison_loud_failed",
       "choices": [
         {
           "text": "Harc!",
@@ -192,11 +190,11 @@
     },
     {
       "id": "Harc",
-      "content": "A harc elkezdődik.",
+      "content": "{A harc elkezdődik.}",
       "action": "combat_viking_camp",
       "choices": [
         {
-          "text": "Tovább",
+          "text": "Harc tovább",
           "next": "Loot"
         }
       ]
@@ -231,6 +229,10 @@
         {
           "text": "Tovább",
           "next": "Loot"
+        },
+        {
+          "text": "Tovább",
+          "next": "Harc"
         }
       ]
     },
@@ -240,7 +242,7 @@
       "action": "poison_aftermath",
       "choices": [
         {
-          "text": "Bemehetek a táborba és átkutatom",
+          "text": "Bemegyek a táborba és átkutatom",
           "next": "Loot"
         },
         {
