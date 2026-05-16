@@ -16,7 +16,7 @@ internal class FoundElementDB
         var element = ElementDB.Instance.GetElementById(elementId);
         if (element != null)
         {
-            _foundElements[element.Id] = element;
+            _foundElements[element.id] = element;
         }
     }
 
@@ -24,4 +24,6 @@ internal class FoundElementDB
     {
         return _foundElements.ContainsKey(elementId);
     }
+
+    public IEnumerable<Element> Elements => _foundElements.Values;
 }

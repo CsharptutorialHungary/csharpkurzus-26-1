@@ -16,17 +16,10 @@
 
     private void Beginning() {
         Console.WriteLine("Combine two elements, and you might just create something new!");
-        Console.WriteLine("Please choose the first ingredient by either typing its ID or its name:");
-
-        foreach (var element in FoundElementDB.Instance.Elements)
-        {
-            Console.ForegroundColor = element.color;
-            Console.WriteLine($"{element.id}: {element.name}");
-        }
-        Console.ForegroundColor = originalForeground;
 
         Console.WriteLine("Press 'X' to view your element collection.\n
-        Press 'Q' to quit the game.");
+        Press 'Q' to quit the game.\n
+        Press any other key to combine elements.");
 
         switch (Console.ReadKey(true).Key)
         {
@@ -37,7 +30,7 @@
                 Console.WriteLine("Goodbye!");
                 return;
             default:
-                CombineElements();
+                GiveIngredientOne();
                 break;
         }
     }
@@ -62,61 +55,110 @@
     }
 
     private void GiveIngredientOne() {
+        Console.WriteLine("Please choose the first ingredient by either typing its ID or its name:");
 
+        try {
+            foreach (var element in FoundElementDB.Instance.Elements)
+            {
+                Console.ForegroundColor = element.color;
+                Console.WriteLine($"{element.id}: {element.name}");
+            }
+            Console.ForegroundColor = originalForeground;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while displaying your collection: {ex.Message}");
+            Beginning();
+            return;
+        }
+
+        try {
+            ingredients[0] = Console.ReadLine() ?? string.Empty;
+            if (int.TryParse(ingredients[0], out int elementId))
+            {
+                if (FoundElementDB.Instance.IsElementFound(elementId))
+                {
+                    ingredients[0] = ElementDB.Instance.GetElementById(elementId)?.name ?? string.Empty;
+                    GiveIngredientTwo();
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("You haven't found that element yet!");
+                    GiveIngredientOne();
+                    return;
+                }
+            }
+        } catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while reading first ingredient: {ex.Message}");
+            Beginning();
+            return;
+        }
     }
-}
 
-
-
-
-
-
-
-ingredients[0] = Console.ReadLine() ?? string.Empty;
-if (int.TryParse(ingredients[0], out int elementId))
-{
-    if (FoundElementDB.Instance.IsElementFound(elementId))
-    {
-        ingredients[0] = ElementDB.Instance.GetElementById(elementId)?.name ?? string.Empty;
+    private void GiveIngredientTwo() {
+        try {
+            Console.WriteLine("Please choose the second ingredient!");
+            ingredients[1] = Console.ReadLine() ?? string.Empty;
+            if (int.TryParse(ingredients[1], out int elementId))
+            {
+                if (FoundElementDB.Instance.IsElementFound(elementId))
+                {
+                    ingredients[1] = ElementDB.Instance.GetElementById(elementId)?.name ?? string.Empty;
+                    CombineIngredients();
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("You haven't found that element yet!");
+                    GiveIngredientTwo();
+                    return;
+                }
+            }
+        } catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while reading second ingredient: {ex.Message}");
+            Beginning();
+            return;
+        }
     }
-    else
-    {
-        Console.WriteLine("You haven't found that element yet!");
-        return;
-    }
-}
 
-Console.WriteLine("Please choose the second ingredient!");
-ingredients[1] = Console.ReadLine() ?? string.Empty;
-if (int.TryParse(ingredients[1], out int elementId))
-{
-    if (FoundElementDB.Instance.IsElementFound(elementId))
-    {
-        ingredients[1] = ElementDB.Instance.GetElementById(elementId)?.name ?? string.Empty;
-    }
-    else
-    {
-        Console.WriteLine("You haven't found that element yet!");
-        return;
-    }
-}
-
-Element result = from element in ElementDB.Instance.Elements
+    private void CombineIngredients() {
+        try {
+            Element result = from element in ElementDB.Instance.Elements
                  where (element.firstIngredient == ingredients[0] && element.secondIngredient == ingredients[1]) ||
                        (element.firstIngredient == ingredients[1] && element.secondIngredient == ingredients[0])
                  select element;
+        } catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while fetching combined element: {ex.Message}");
+            Beginning();
+            return;
+        }
 
-if (result.FirstOrDefault() != null) {
-    if (!FoundElementDB.Instance.IsElementFound(result.FirstOrDefault().id))
-    {
-        Console.WriteLine("Congratulations! You have discovered a new element:");
-        Console.ForegroundColor = result.FirstOrDefault().color;
-        Console.WriteLine(result.FirstOrDefault().name);
-        FoundElementDB.Instance.AddFoundElement(result.FirstOrDefault().id);
-    } else {
-        Console.WriteLine("You have already discovered that element!");
+        try {
+            if (result.FirstOrDefault() != null) {
+                if (!FoundElementDB.Instance.IsElementFound(result.FirstOrDefault().id))
+                {
+                    Console.WriteLine("Congratulations! You have discovered a new element:");
+                    Console.ForegroundColor = result.FirstOrDefault().color;
+                    Console.WriteLine(result.FirstOrDefault().name);
+                    FoundElementDB.Instance.AddFoundElement(result.FirstOrDefault().id);
+                } else {
+                    Console.WriteLine("You have already discovered that element!");
+                }
+
+            } else {
+                Console.WriteLine("...Looks like that was a dud... Try again!");
+            }
+        } catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while handling fetched element: {ex.Message}");
+        }
     }
-
-} else {
-    Console.WriteLine("...Looks like that was a dud... Try again!");
 }
+
+
+
+
