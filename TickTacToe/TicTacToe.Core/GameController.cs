@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Text.Json;
 
 namespace TicTacToe.Core;
 
@@ -10,6 +13,7 @@ public class GameController
     readonly CursorController _cursorController;
     private byte _gamestate = 0; // 0 - in menu, 1 - in game, 2 - game over
     private bool _currentPlayer = false; // false - player X, true - player O
+    private readonly List<MoveRecord> _moveHistory = new List<MoveRecord>();
     public GameController(FieldRenderer fieldRenderer, CursorController cursorController)
     {
         _renderer = fieldRenderer;
@@ -66,22 +70,62 @@ public class GameController
                     placeSuccessful = sellectedField.setState((byte)(_currentPlayer ? 2 : 1));
 
                     if (placeSuccessful)
+                    {
+                        _moveHistory.Add(new MoveRecord(sellectedField.getX(), sellectedField.getY(), _currentPlayer ? "O" : "X"));
                         _currentPlayer = !_currentPlayer;
-
+                    }
                     break;
-
             }
+
+            Console.Clear();
+            _renderer.RenderField();
             if (sellectedField == null)
             {
                 Console.WriteLine("Érvénytelen mozgás!");
                 continue;
             }
 
-            Console.Clear();
-            _renderer.RenderField();
 
             if (placeSuccessful)
+            {
                 Console.WriteLine("A(z) {0} játékos lehelyezte a jelölőjét", !_currentPlayer ? "O" : "X");
+                byte winner = _renderer.checkWiner(sellectedField);
+                if (winner != 0)
+                {   
+                    switch (winner)
+                    {
+                        case 1:
+                            Console.WriteLine("A(z) X játékos nyert!");
+                            break;
+                        case 2:
+                            Console.WriteLine("A(z) O játékos nyert!");
+                            break;
+                        case 3:
+                            Console.WriteLine("Döntetlen!");
+                        break;
+                    }
+
+                    int xSteps = _moveHistory.Where(m => m.Player == "X").Count();
+                    int oSteps = _moveHistory.Where(m => m.Player == "O").Count();
+
+                    Console.WriteLine($"\nEbben a körben X összesen {xSteps} lépést tett, O pedig {oSteps} lépést.");
+
+                    try
+                    {
+                        string json = JsonSerializer.Serialize(_moveHistory, new JsonSerializerOptions { WriteIndented = true });
+                        File.WriteAllText("last_game_history.json", json);
+                        Console.WriteLine("A lépéstörténet sikeresen kimentve a last_game_history.json fájlba.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Nem sikerült kimenteni a történetet: {ex.Message}");
+                    }
+
+                    Console.WriteLine("A kilépéshez nyomj meg egy gombot...");
+                    Console.ReadKey();
+                    Environment.Exit(0);
+                }
+            }
         }
         inMenu();
 

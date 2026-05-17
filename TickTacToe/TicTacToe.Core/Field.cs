@@ -11,7 +11,7 @@ public class Field
         y = ypos;
         state = 0;
     }
-    public int getState() => state;
+    public byte getState() => state;
     public bool setState(byte state)
     {
         if (this.state != (byte)0)
