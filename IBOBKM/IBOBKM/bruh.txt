@@ -1,4 +1,0 @@
-{"id":0,"name":"Air","color":{"red":255,"green":0,"blue":255},"firstIngredient":null,"secondIngredient":null,"message":"You somehow created air... Something must\u0027ve went wrong!"}
-{"id":1,"name":"Earth","color":{"red":255,"green":0,"blue":0},"firstIngredient":null,"secondIngredient":null,"message":"You somehow created earth... Something must\u0027ve went wrong!"}
-{"id":2,"name":"Fire","color":{"red":255,"green":0,"blue":0},"firstIngredient":null,"secondIngredient":null,"message":"You somehow created fire... Something must\u0027ve went wrong!"}
-{"id":3,"name":"Water","color":{"red":0,"green":0,"blue":255},"firstIngredient":null,"secondIngredient":null,"message":"You somehow created water... Something must\u0027ve went wrong!"}

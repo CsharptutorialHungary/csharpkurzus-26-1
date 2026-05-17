@@ -4,6 +4,7 @@ using System.Text.Json;
 internal class Program
 {
     private readonly string[] _ingredients = new string[2];
+    private IEnumerable<Element> _foundElements = FoundElementDB.Instance.Elements.OrderBy(e => e.id);
     private static void Main(string[] args)
     {
         Program program = new Program();
@@ -21,62 +22,116 @@ internal class Program
         Console.WriteLine("Combine two elements, and you might just create something new!");
 
         Console.WriteLine("Type 'X' to view your element collection, 'Q' to quit the game and any other key to combine elements.");
-
-        switch (Console.ReadLine()?.ToUpper())
+        try
         {
-            case "X":
-                ViewCollection();
-                break;
-            case "Q":
-                Console.WriteLine("Goodbye!");
-                return;
-            default:
-                GiveIngredientOne();
-                break;
+            switch (Console.ReadLine()?.ToUpper())
+            {
+                case "X":
+                    ViewCollection();
+                    break;
+                case "Q":
+                    Console.WriteLine("Goodbye!");
+                    return;
+                default:
+                    GiveIngredientOne();
+                    break;
+            }
+        } catch (FormatException ex)
+        {
+            Console.WriteLine($"Input format is invalid: {ex.Message}");
+            Beginning();
+            return;
+        } catch (Exception ex)       {
+            Console.WriteLine($"An error occurred while handling your choice: {ex.Message}");
+            Beginning();
+            return;
         }
     }
-
-    private void SetConsoleColor(ElementColor color)
-    {
-        Console.Write($"\u001b[38;2;{color.red};{color.green};{color.blue}m");
-    }
-
-    
 
     private void ViewCollection() {
         Console.WriteLine("Your Element Collection:");
-        foreach (var element in FoundElementDB.Instance.Elements)
+        try
         {
-            SetConsoleColor(element.color);
-            Console.WriteLine($"{element.id}: {element.name}");
-        }
-        Console.ResetColor();
-        Console.WriteLine("Press S to save your collection, L to load a saved collection, or any other key to return to the lab.");
-        switch (Console.ReadLine()?.ToUpper())
+            _foundElements = FoundElementDB.Instance.Elements.OrderBy(e => e.id);
+            foreach (var element in _foundElements)
+            {
+                ConsolePainter.SetConsoleColor(element.color);
+                Console.WriteLine($"{element.id}: {element.name}");
+            }
+            ConsolePainter.ResetConsoleColor();
+            Console.WriteLine("Elements found: " + FoundElementDB.Instance.Elements.Count() + "/" + ElementDB.Instance.Elements.Count());
+            if (FoundElementDB.Instance.Elements.Count() == ElementDB.Instance.Elements.Count())
+            {
+                Console.WriteLine("Congratulations! You've found all the elements! You're a true alchemist!");
+            }
+            Console.WriteLine("Press S to save your collection, L to load a saved collection, or any other key to return to the lab.");
+        } catch (ElementNotFoundException ex)
         {
-            case "S":
-                SaveCollection();
-                break;
-            case "L":
-                LoadCollection();
-                break;
-            default:
-                Beginning();
-                break;
+            Console.WriteLine(ex.Message);
+            Beginning();
+            return;
+        } catch (FormatException ex)
+        {
+            Console.WriteLine($"Input format is invalid: {ex.Message}");
+            Beginning();
+            return;
         }
+        catch (Exception ex) {
+            Console.WriteLine($"An error occurred while displaying your collection: {ex.Message}");
+            Beginning();
+            return;
+        }
+        try
+        {
+            switch (Console.ReadLine()?.ToUpper())
+            {
+                case "S":
+                    SaveCollection();
+                    break;
+                case "L":
+                    LoadCollection();
+                    break;
+                default:
+                    Beginning();
+                    break;
+            }
+        } catch (FormatException ex)
+        {
+            Console.WriteLine($"Input format is invalid: {ex.Message}");
+            Beginning();
+            return;
+        } catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while handling your choice: {ex.Message}");
+            Beginning();
+            return;
+        }
+        
     }
 
     private void GiveIngredientOne() {
+        _foundElements = FoundElementDB.Instance.Elements.OrderBy(e => e.id);
+
         Console.WriteLine("Please choose the first ingredient by either typing its ID or its name:");
 
         try {
-            foreach (var element in FoundElementDB.Instance.Elements)
+            foreach (var element in _foundElements)
             {
-                SetConsoleColor(element.color);
+                ConsolePainter.SetConsoleColor(element.color);
                 Console.WriteLine($"{element.id}: {element.name}");
             }
-            Console.ResetColor();
+            ConsolePainter.ResetConsoleColor();
+        } catch (ElementNotFoundException ex)
+        {
+            Console.WriteLine(ex.Message);
+            Beginning();
+            return;
+        } catch (FormatException ex)       {
+            Console.WriteLine($"Input format is invalid: {ex.Message}");
+            Beginning();
+            return;
         }
+        
         catch (Exception ex)
         {
             Console.WriteLine($"An error occurred while displaying your collection: {ex.Message}");
@@ -101,6 +156,16 @@ internal class Program
                     return;
                 }
             }
+        }catch (FormatException ex)
+        {
+            Console.WriteLine($"Input format is invalid: {ex.Message}");
+            Beginning();
+            return;
+        } catch (ElementNotFoundException ex)
+        {
+            Console.WriteLine(ex.Message);
+            Beginning();
+            return;
         } catch (Exception ex)
         {
             Console.WriteLine($"An error occurred while reading first ingredient: {ex.Message}");
@@ -128,7 +193,19 @@ internal class Program
                     return;
                 }
             }
-        } catch (Exception ex)
+        } catch (ElementNotFoundException ex)
+        {
+            Console.WriteLine(ex.Message);
+            Beginning();
+            return;
+        }
+        catch (FormatException ex)
+        {
+            Console.WriteLine($"Input format is invalid: {ex.Message}");
+            Beginning();
+            return;
+        }
+        catch (Exception ex)
         {
             Console.WriteLine($"An error occurred while reading second ingredient: {ex.Message}");
             Beginning();
@@ -144,7 +221,13 @@ internal class Program
             where (element.firstIngredient == _ingredients[0] && element.secondIngredient == _ingredients[1]) ||
                 (element.firstIngredient == _ingredients[1] && element.secondIngredient == _ingredients[0])
             select element;
-        } catch (Exception ex)
+        } catch (ElementNotFoundException ex)
+        {
+            Console.WriteLine(ex.Message);
+            Beginning();
+            return;
+        }
+        catch (Exception ex)
         {
             Console.WriteLine($"An error occurred while fetching combined element: {ex.Message}");
             Beginning();
@@ -155,18 +238,25 @@ internal class Program
             if (combinedElement != null) {
                 if (!FoundElementDB.Instance.IsElementFound(combinedElement.id))
                 {
-                    Console.WriteLine("Congratulations! You have discovered a new element:");
-                    SetConsoleColor(combinedElement.color);
-                    Console.WriteLine(combinedElement.name);
+                    ConsolePainter.SetConsoleColor(combinedElement.color);
+                    Console.WriteLine(combinedElement.message);
                     FoundElementDB.Instance.AddFoundElement(combinedElement.id);
+                    ConsolePainter.ResetConsoleColor();
                 } else {
-                    Console.WriteLine("You have already discovered that element!");
+                    Console.WriteLine("You have already discovered that element!: ");
+                    ConsolePainter.SetConsoleColor(combinedElement.color);
+                    Console.WriteLine($"{combinedElement.id}: {combinedElement.name}");
+                    ConsolePainter.ResetConsoleColor();
                 }
 
             } else {
                 Console.WriteLine("...Looks like that was a dud... Try again!");
             }
-        } catch (Exception ex)
+        } catch (ElementNotFoundException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        catch (Exception ex)
         {
             Console.WriteLine($"An error occurred while handling fetched element: {ex.Message}");
         }
@@ -174,14 +264,14 @@ internal class Program
     }
 
     public void SaveCollection() {
-        Console.WriteLine("Please enter the name or path of the file to save the collection into:");
+        Console.WriteLine("Please enter the name of the file to save the collection into:");
         string? fileName = Console.ReadLine();
         while (string.IsNullOrWhiteSpace(fileName)) {
             Console.WriteLine("File name cannot be empty. Please enter a valid file name:");
             fileName = Console.ReadLine();
         }
         try {
-            using (StreamWriter writer = new StreamWriter(fileName))
+            using (StreamWriter writer = new StreamWriter("saves/" + fileName))
             {
                 foreach (var element in FoundElementDB.Instance.Elements)
                 {
@@ -208,14 +298,14 @@ internal class Program
     }
 
     public void LoadCollection() {
-        Console.WriteLine("Please enter the name or path of the file to load the collection from:");
+        Console.WriteLine("Please enter the nameof the file to load the collection from:");
         string? fileName = Console.ReadLine();
         while (string.IsNullOrWhiteSpace(fileName)) {
             Console.WriteLine("File name cannot be empty. Please enter a valid file name:");
             fileName = Console.ReadLine();
         }
         try {
-            using (StreamReader reader = new StreamReader(fileName))
+            using (StreamReader reader = new StreamReader("saves/" + fileName))
             {
                 string? line;
                 while ((line = reader.ReadLine()) != null)
@@ -231,6 +321,12 @@ internal class Program
                 }
             }
             Console.WriteLine("Collection loaded successfully!");
+        } catch (JsonException ex)
+        {
+            Console.WriteLine(ex.Message);
+        } catch (IOException ex)
+        {
+            Console.WriteLine($"There's no such file!: {ex.Message}");
         }
         catch (Exception ex)
         {

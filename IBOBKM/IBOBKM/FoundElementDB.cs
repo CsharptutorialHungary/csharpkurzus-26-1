@@ -9,6 +9,7 @@ internal class FoundElementDB
         AddFoundElement(1);
         AddFoundElement(2);
         AddFoundElement(3);
+        AddFoundElement(4);
     }
 
     public void AddFoundElement(int elementId)
