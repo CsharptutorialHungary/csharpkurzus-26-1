@@ -112,7 +112,7 @@ internal class Program
     private void GiveIngredientOne() {
         _foundElements = FoundElementDB.Instance.Elements.OrderBy(e => e.id);
 
-        Console.WriteLine("Please choose the first ingredient by either typing its ID or its name:");
+        Console.WriteLine("Please choose the first ingredient by typing its ID:");
 
         try {
             foreach (var element in _foundElements)
@@ -155,6 +155,11 @@ internal class Program
                     GiveIngredientOne();
                     return;
                 }
+            } else
+            {
+                Console.WriteLine("Please enter a valid element ID!");
+                GiveIngredientOne();
+                return;
             }
         }catch (FormatException ex)
         {
@@ -192,6 +197,11 @@ internal class Program
                     GiveIngredientTwo();
                     return;
                 }
+            } else
+            {
+                Console.WriteLine("Please enter a valid element ID!");
+                GiveIngredientTwo();
+                return;
             }
         } catch (ElementNotFoundException ex)
         {
