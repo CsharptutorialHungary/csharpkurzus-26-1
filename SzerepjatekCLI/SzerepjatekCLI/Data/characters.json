@@ -1,0 +1,68 @@
+{
+  "characters": [
+    {
+      "id": "viking_raider_01",
+      "name": "Viking fosztogató",
+      "type": "enemy",
+      "level": 2,
+      "health": 60,
+      "maxHealth": 60,
+      "damage": 12,
+      "armor": 3,
+      "inventory": [
+        {
+          "id": 201,
+          "name": "Rozsdás kard",
+          "type": "weapon",
+          "damage": 8,
+          "weight": 3
+        },
+        {
+          "id": 301,
+          "name": "Kis gyógyital",
+          "type": "potion",
+          "healAmount": 25,
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "viking_berserker",
+      "name": "Berserker",
+      "type": "enemy",
+      "level": 5,
+      "health": 120,
+      "maxHealth": 120,
+      "damage": 25,
+      "armor": 5,
+      "inventory": [
+        {
+          "id": 202,
+          "name": "Kétkezes fejsze",
+          "type": "weapon",
+          "damage": 18,
+          "weight": 6
+        }
+      ]
+    },
+    {
+      "id": "viking_scout",
+      "name": "Felderítő",
+      "type": "enemy",
+      "level": 1,
+      "health": 40,
+      "maxHealth": 40,
+      "damage": 8,
+      "armor": 1,
+      "inventory": [
+        {
+          "id": 303,
+          "name": "Füstbomba",
+          "type": "utility",
+          "effect": "escape",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

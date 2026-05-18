@@ -1,0 +1,50 @@
+[
+  {
+    "Id": 0,
+    "Name": "Másfélkezes kard",
+    "Description": "Ez a saját kedvenc kardod",
+    "Weight": 10,
+    "Damage": 10,
+    "Defense": 5
+  },
+  {
+    "Id": 1,
+    "Name": "Vaskard",
+    "Description": "Egyszerű vaskard",
+    "Weight": 5,
+    "Damage": 15,
+    "Defense": 0
+  },
+  {
+    "Id": 2,
+    "Name": "Harci Balta",
+    "Description": "Nehéz kétkezes balta",
+    "Weight": 12,
+    "Damage": 28,
+    "Defense": 0
+  },
+  {
+    "Id": 3,
+    "Name": "Tőr",
+    "Description": "Könnyű és gyors fegyver",
+    "Weight": 2,
+    "Damage": 10,
+    "Defense": 0
+  },
+  {
+    "Id": 4,
+    "Name": "Lovagi Kard",
+    "Description": "Jól kiegyensúlyozott kard",
+    "Weight": 7,
+    "Damage": 22,
+    "Defense": 2
+  },
+  {
+    "Id": 5,
+    "Name": "Varázsbot",
+    "Description": "Mana vezetésére alkalmas bot",
+    "Weight": 3,
+    "Damage": 18,
+    "Defense": 1
+  }
+]
