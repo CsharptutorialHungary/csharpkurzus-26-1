@@ -1,0 +1,142 @@
+<!--
+Generate a HTML5 page
+
+Tech requirements:
+- Do not use external css libs
+- CSS must be inline css
+- Do not use javascript libs
+- Javascript must be inline javascript
+
+
+Layout:
+- Page has to have A centered box both vertically and horizontally. Box size is 50% width of viewport, Height is automatic
+- The centered box contains:
+    - A header element called expression evaluator
+    - A textbox that fills the with of the bix with placeholder 'formula'
+    - Textbox uses fixed with font. Has name of `formula`
+    - Below textbox two radio buttons: rpn and infix. rpn is checked by default. Names are rpn and infix.
+    - Below radio buttons two buttons right aligned: evaluate and reset.
+    - Below this a div with id results, which is empty and hidden.
+
+Behaviour:
+ - Reset button clears formula textbox text and hides the results div, if it was visible.
+ - Evaluate button on click calls the /evaluate endpoint as GET. form parameters are sent as part of get request. The response is displayed in the results div.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expression Evaluator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 50%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-family: monospace;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .radio-group {
+            margin-bottom: 15px;
+        }
+        .radio-group label {
+            margin-right: 20px;
+            font-size: 14px;
+        }
+        .radio-group input[type="radio"] {
+            margin-right: 5px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #results {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Expression Evaluator</h1>
+        <input type="text" id="formula" name="formula" placeholder="formula">
+        <div class="radio-group">
+            <label><input type="radio" name="notation" value="rpn" checked> RPN</label>
+            <label><input type="radio" name="notation" value="infix"> Infix</label>
+        </div>
+        <div class="button-group">
+            <button onclick="evaluate()">Evaluate</button>
+            <button onclick="reset()">Reset</button>
+        </div>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function evaluate() {
+            const formula = document.getElementById('formula').value;
+            const notation = document.querySelector('input[name="notation"]:checked').value;
+            const resultsDiv = document.getElementById('results');
+            
+            fetch(`/evaluate?formula=${encodeURIComponent(formula)}&notation=${notation}`)
+                .then(response => response.text())
+                .then(data => {
+                    resultsDiv.textContent = data;
+                    resultsDiv.style.display = 'block';
+                })
+                .catch(error => {
+                    resultsDiv.textContent = 'Error: ' + error;
+                    resultsDiv.style.display = 'block';
+                });
+        }
+
+        function reset() {
+            document.getElementById('formula').value = '';
+            document.getElementById('results').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
